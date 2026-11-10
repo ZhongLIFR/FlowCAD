@@ -3,6 +3,7 @@
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import csv
+from itertools import combinations, product
 import json
 from pathlib import Path
 import statistics
@@ -10,7 +11,7 @@ import sys
 
 
 from replay import REPLAY, ROOT, verify_model
-FAMILIES = ("multimodal_equal_moments", "unimodal_mean_shift")
+FAMILIES = ("multimodal_equal_marginals", "unimodal_mean_shift")
 SEEDS = (42, 43, 44, 45, 46)
 ROWS = 800
 METRICS = ("pr_auc", "roc_auc", "p_at_n")
@@ -18,18 +19,13 @@ METRICS = ("pr_auc", "roc_auc", "p_at_n")
 
 def synthetic_table(family, seed, np):
     rng = np.random.default_rng(seed)
-    if family == "multimodal_equal_moments":
-        # A block contains a noisy point rotated to each of eight modes.
-        # Opposite pairs and quarter rotations fix both conditional means
-        # and covariance matrices, including after flipping whole blocks.
-        angles = np.concatenate((np.arange(4) * np.pi / 2, np.arange(4) * np.pi / 2 + np.pi / 4))
-        cosine, sine = np.cos(angles), np.sin(angles)
-        rotations = np.array([[cosine, -sine], [sine, cosine]]).transpose(2, 0, 1)
-        sigma = 0.08
-        latent = rng.normal(0.0, sigma, size=(ROWS // 8, 2))
-        latent[:, 0] += 1.0
-        behavior = np.einsum("aij,bj->bai", rotations, latent)
-        pattern = np.repeat([0, 1], 4)
+    if family == "multimodal_equal_marginals":
+        # Within a block both parities have the same single-coordinate and
+        # coordinate-pair values. Only the product of all three signs differs.
+        signs = np.asarray(list(product((-1, 1), repeat=3)))
+        magnitudes = rng.normal(1.0, 0.08, size=(ROWS // len(signs), signs.shape[1]))
+        behavior = magnitudes[:, None, :] * signs[None, :, :]
+        pattern = (signs.prod(axis=1) < 0).astype(np.int8)
     else:
         sigma = 0.25
         latent = rng.normal(0.0, sigma, size=(ROWS // 2, 2))
@@ -44,15 +40,23 @@ def synthetic_table(family, seed, np):
     labels = np.repeat(flips, len(pattern)).astype(np.int8)
     clean = np.tile(pattern, len(behavior))
     context = np.bitwise_xor(clean, labels)
-    behavior = behavior.reshape(-1, 2)
+    behavior = behavior.reshape(ROWS, -1).astype(np.float32)
     np.testing.assert_array_equal(np.bincount(context), np.bincount(clean))
     np.testing.assert_array_equal(np.bincount(context[labels == 1]), [20, 20])
-    if family == "multimodal_equal_moments":
-        np.testing.assert_allclose(behavior[context == 0].mean(0), [0, 0], atol=1e-12)
-        np.testing.assert_allclose(behavior[context == 1].mean(0), [0, 0], atol=1e-12)
-        np.testing.assert_allclose(np.cov(behavior[context == 0].T), np.cov(behavior[context == 1].T), atol=1e-12)
+    if family == "multimodal_equal_marginals":
+        # Check the actual float32 model inputs in both clean and swapped tables.
+        np.testing.assert_array_equal((behavior.prod(axis=1) < 0), clean)
+        for assignments in (clean, context):
+            left, right = behavior[assignments == 0], behavior[assignments == 1]
+            np.testing.assert_array_equal(np.sort(left, axis=0), np.sort(right, axis=0))
+            for columns in combinations(range(behavior.shape[1]), 2):
+                left_values, left_counts = np.unique(left[:, columns], axis=0, return_counts=True)
+                right_values, right_counts = np.unique(right[:, columns], axis=0, return_counts=True)
+                np.testing.assert_array_equal(left_values, right_values)
+                np.testing.assert_array_equal(left_counts, right_counts)
+            np.testing.assert_allclose(np.cov(left.T), np.cov(right.T), rtol=0, atol=1e-12)
     order = rng.permutation(ROWS)
-    return context[order], behavior[order].astype(np.float32), labels[order]
+    return context[order], behavior[order], labels[order]
 
 
 def evaluate(job):
@@ -71,7 +75,8 @@ def evaluate(job):
         learned[method] = checkpoints.select_checkpoint(features[:, None].astype(np.float32), behavior, training_seed)
 
     # Fitted means and MADs use all feature rows, without the injected labels.
-    fit_mean = np.stack([behavior[context == group].mean(axis=0) for group in (0, 1)])
+    mean_dtype = np.float64 if family == "multimodal_equal_marginals" else None
+    fit_mean = np.stack([behavior[context == group].mean(axis=0, dtype=mean_dtype) for group in (0, 1)])
     scale = np.maximum(np.median(np.abs(behavior - np.median(behavior, axis=0)), axis=0), 1e-6)
 
     scored = {
@@ -130,7 +135,7 @@ def main():
         "families": args.families, "data_seeds": args.seeds,
         "model_seeds": [201 + seed - SEEDS[0] for seed in args.seeds],
         "injection": "Swap binary contexts within randomly selected balanced blocks; preserves complete behavior and context marginals.",
-        "multimodal": "Four axial vs four diagonal modes at radius 1; Gaussian noise SD .08; quarter-rotation blocks match first two conditional moments exactly.",
+        "multimodal": "Each block uses all eight sign combinations of one shared 3D Gaussian magnitude vector (mean 1, SD .08). Context groups the two sign-product parities. Single-feature and pairwise empirical marginals match exactly, before and after swaps.",
         "unimodal": "Reflected Gaussian pairs centered on (-1, 0) and (1, 0); per-dimension SD .25.",
         "no_context": "Keep architecture and initialization identical; replace context input with zeros.",
         "fit_and_score": "Same full table; public CSM with 5% tail and its complete checkpoint grid; one CPU thread per process.",

@@ -40,12 +40,23 @@ python scripts/run_qcad_replay_lunar.py --workers 2
 python scripts/run_qcad_paper_dte_tccm.py --dte-repo .repro/DTE --tccm-repo .repro/TCCM-NIPS --workers 2
 
 replay=outputs/qcad_paper_replay
+python scripts/run_qcad_baselines.py --qcad-repo .repro/QCAD
+python scripts/run_qcad_baselines.py --methods CAD-Full
+python scripts/run_paired_qcad.py --all-injections --jobs 4 --output "$replay/all_qcad" \
+  --score-output "$replay/qcad_in_range/records"
+
+sources=()
+for method in LoPAD ROCOD CAD-Full IForest LOF k-NN SOD HBOS; do
+  sources+=(--source "$method=$replay/historical_baselines/$method")
+done
 python scripts/summarize_qcad_paper_full.py \
   --source "Flow-CAD=$replay/flowcad_csm05/summary.csv" \
   --source "LUNAR=$replay/lunar/summary.csv" \
   --source "DTE-C=$replay/baselines_dte_tccm/per_run.csv" \
   --source "DTE-NP=$replay/baselines_dte_tccm/per_run.csv" \
-  --source "TCCM=$replay/baselines_dte_tccm/per_run.csv"
+  --source "TCCM=$replay/baselines_dte_tccm/per_run.csv" \
+  --source "QCAD=$replay/all_qcad/per_run.csv" \
+  "${sources[@]}"
 ```
 
 The runners save completed cases in `outputs/qcad_paper_replay/` and resume from those records. Full runs take several hours on CPU. Results may vary across hardware and software platforms.
@@ -54,7 +65,9 @@ Each replay uses the same perturbed inputs and scores every row. Flow-CAD trains
 
 LUNAR uses the PyOD defaults and their internal split. Flow-CAD and LUNAR use one-hot categorical inputs. DTE and TCCM use the stored numeric values and ordinal codes for text categories. DTE-NP retains the same-table neighbor convention of the released implementation.
 
-The main results distinguish the five rerun methods from the nine methods cited from QCAD Table 6. Per-dataset ranks use the two-decimal displayed means and average ties. [Main results](results/main_results.csv) · [QCAD Table 6](https://link.springer.com/article/10.1007/s10618-023-00967-z#Tab6)
+IForest, LOF, k-NN, SOD, and HBOS use PyOD 2.0.3 and the benchmark feature columns. IForest uses seed 201 plus the injection index. LoPAD uses the released Markov blankets and 20 CART subsamples. ROCOD uses the benchmark's categorical Gower neighborhoods and the global predictor for rows without neighbors. QCAD uses mixed-type Gower neighborhoods and weighted leaf quantiles.
+
+Flow-CAD and all thirteen baselines use the same 170 reconstructed tables. CAD-Full implements Song et al.'s GMM-CAD-Full with five mixture components and the benchmark context and behavior columns. Per-dataset ranks use the two-decimal displayed means and average ties. [CAD-Full paper](https://doi.org/10.1109/TKDE.2007.1009) · [Main results](results/main_results.csv)
 
 ## Reproduce the scoring sweeps
 
@@ -78,7 +91,20 @@ python scripts/run_feature_localization.py --qcad-repo .repro/QCAD --workers 2
 
 The paired accuracy comparison covers the eight smallest tables and injection seeds 42–44. The QCAD port uses a mixed-type Gower distance and the maintained scikit-learn forest backend. [Paired accuracy results](results/paired_qcad_accuracy.csv)
 
-The controlled synthetic experiment compares conditional Flow-CAD, constant-context Flow-CAD, and a conditional sample-mean residual. Context swaps preserve the context and behavior marginals. [Conditional-distribution results](results/conditional_distribution_per_run.csv)
+The synthetic experiment compares conditional Flow-CAD, constant-context Flow-CAD, and a conditional sample-mean residual. The sign-parity setting matches the empirical distributions of all single features and all feature pairs across contexts. The mean-shift control changes conditional means. Both settings swap context labels while preserving the behavior rows and context counts. [Synthetic results](results/conditional_distribution_per_run.csv)
+
+After the main Flow-CAD replay, reproduce the conditional-mean MLP comparison on all 170 benchmark tables:
+
+```bash
+python scripts/run_qcad_conditional_mean.py --workers 2
+python scripts/run_qcad_in_range_flow.py --workers 2
+python scripts/summarize_conditional_mean_comparison.py
+python scripts/summarize_conditional_mean_comparison.py --comparator qcad
+```
+
+The MLP uses the same context encoder and hidden widths, with its state and time inputs fixed at zero. Both models use the same training seeds and choose their checkpoints independently with the 5% CSM rule. The range-restricted evaluation reuses the same scores and keeps rows with all scaled behavioral values in `[0, 1]` within a tolerance of `1e-8`. A trial must have both classes after filtering. The QCAD comparison uses the row scores saved by the main replay and checks their full-table metrics before filtering. [Macro results](results/conditional_mean_macro.csv) · [Per-dataset results](results/conditional_mean_per_dataset.csv) · [Paired runs](results/conditional_mean_per_run.csv)
+
+[QCAD range comparison](results/qcad_in_range_macro.csv) · [Per-dataset results](results/qcad_in_range_per_dataset.csv) · [Paired runs](results/qcad_in_range_per_run.csv)
 
 The localization experiment changes one behavioral coordinate per injected row across six datasets. It compares Flow-CAD with uniform feature ranking and reports joint row-and-feature recovery for Flow-CAD. [Feature localization results](results/feature_localization_per_run.csv)
 

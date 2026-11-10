@@ -15,6 +15,7 @@ from replay import MANIFEST, REPLAY, ROOT, read_manifest
 METRICS = ("pr_auc", "roc_auc", "p_at_n")
 METHODS = ("Flow-CAD", "LUNAR", "DTE-C", "DTE-NP", "TCCM")
 QCAD_METHODS = ("QCAD", "LoPAD", "ROCOD", "CAD", "IForest", "LOF", "k-NN", "SOD", "HBOS")
+CAD_FULL = "CAD-Full"
 PAPER_STATS = dict(zip(METRICS, ("PRC AUC", "ROC AUC", "P@n"), strict=True))
 
 
@@ -60,20 +61,23 @@ def main():
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
     parser.add_argument("--output", type=Path, default=REPLAY)
     parser.add_argument("--reference", type=Path, default=ROOT / "results" / "main_results.csv",
-                        help="CSV supplying the nine values cited from QCAD Table 6")
+                        help="CSV supplying values for methods without per-run records")
     parser.add_argument("--source", action="append", required=True, metavar="METHOD=PATH",
                         help="Per-case CSV or directory of per-case JSON files, one source for each method")
     args = parser.parse_args()
     sources = {name: Path(path) for name, path in (entry.split("=", 1) for entry in args.source)}
-    if len(args.source) != len(METHODS) or set(sources) != set(METHODS):
-        parser.error("Provide one source for each of: " + ", ".join(METHODS))
+    allowed_methods = set(METHODS + QCAD_METHODS + (CAD_FULL,))
+    if len(args.source) != len(sources) or not set(METHODS) <= sources.keys() <= allowed_methods:
+        parser.error("Provide one source for each required method, with optional sources for the QCAD baselines")
+    if {"CAD", CAD_FULL} <= sources.keys():
+        parser.error("Provide either CAD or CAD-Full for the CAD baseline column")
     datasets = read_manifest(args.manifest)["datasets"]
     expected = {
         (dataset, int(seed)): spec["files"][str(seed)]["sha256"]
         for dataset, spec in datasets.items() for seed in spec["injection_seeds"]
     }
-    results = {method: validate(read_records(sources[method], method), expected, method)
-               for method in METHODS}
+    results = {method: validate(read_records(path, method), expected, method)
+               for method, path in sources.items()}
     status = {"expected_per_method": len(expected), "completed": {
         method: len(table) for method, table in results.items()
     }}
@@ -108,9 +112,9 @@ def summarize(output, datasets, results, reference):
             key = f"{metric}_mean"
             for row in rows:
                 row[f"{metric}_rank"] = average_rank(row[key], [peer[key] for peer in rows], True)
-    for method in METHODS:
+    for method in results:
         rows = [row for row in per_dataset if row["method"] == method]
-        summary = {"method": method, "n_datasets": len(rows), "n_methods_ranked": len(METHODS)}
+        summary = {"method": method, "n_datasets": len(rows), "n_methods_ranked": len(results)}
         for metric in METRICS:
             summary[metric] = statistics.mean(row[f"{metric}_mean"] for row in rows)
             summary[f"{metric}_avg_rank"] = statistics.mean(row[f"{metric}_rank"] for row in rows)
@@ -132,18 +136,30 @@ def displayed_mean(value):
 def write_main_table(output, datasets, per_dataset, reference):
     names = [spec["display_name"] for spec in datasets.values()]
     stat_names = tuple(PAPER_STATS.values())
-    expected = {(name, stat, method) for name in names for stat in stat_names for method in QCAD_METHODS}
+    replay_methods = {row["method"] for row in per_dataset}
+    missing_methods = set(QCAD_METHODS) - replay_methods
+    if CAD_FULL in replay_methods:
+        missing_methods.discard("CAD")
+    reference_rows = []
+    if missing_methods:
+        with reference.open(newline="") as stream:
+            reference_rows = list(csv.DictReader(stream))
+    use_cad_full = CAD_FULL in replay_methods or (
+        "CAD" in missing_methods and any(row["method"] == CAD_FULL for row in reference_rows)
+    )
+    baselines = tuple(CAD_FULL if method == "CAD" and use_cad_full else method for method in QCAD_METHODS)
+    reference_methods = set(baselines) - replay_methods
+    expected = {(name, stat, method) for name in names for stat in stat_names for method in reference_methods}
     scores = {}
-    with reference.open(newline="") as stream:
-        for row in csv.DictReader(stream):
-            if row["method"] not in QCAD_METHODS:
-                continue
-            key = (row["dataset"], row["stat"], row["method"])
-            if key in scores:
-                raise ValueError(f"Duplicate QCAD reference value: {key}")
-            scores[key] = (row["mean"], row["std"], "QCAD Table 6")
+    for row in reference_rows:
+        if row["method"] not in reference_methods:
+            continue
+        key = (row["dataset"], row["stat"], row["method"])
+        if key in scores:
+            raise ValueError(f"Duplicate QCAD reference value: {key}")
+        scores[key] = (row["mean"], row["std"], row.get("source") or "QCAD Table 6")
     if scores.keys() != expected:
-        raise ValueError("Expected one QCAD reference value for each dataset, metric and cited method")
+        raise ValueError("Expected one reference value for each dataset, metric and method without per-run results")
 
     for row in per_dataset:
         dataset = datasets[row["dataset"]]["display_name"]
@@ -153,7 +169,7 @@ def write_main_table(output, datasets, per_dataset, reference):
 
     rows = []
     groups = {}
-    method_order = ("Flow-CAD", *QCAD_METHODS, *METHODS[1:])
+    method_order = ("Flow-CAD", *baselines, *METHODS[1:])
     for name in names:
         for stat in stat_names:
             peers = [displayed_mean(scores[name, stat, method][0]) for method in method_order]
