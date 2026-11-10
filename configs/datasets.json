@@ -1,0 +1,448 @@
+{
+  "datasets": {
+    "abalone": {
+      "display_name": "Abalone",
+      "file": "abaloneGene.csv",
+      "context_columns": [
+        "Sex",
+        "Length",
+        "Diameter",
+        "Height"
+      ],
+      "behavior_columns": [
+        "Whole weight",
+        "Shucked weight",
+        "Viscera weight",
+        "Shell weight",
+        "Rings"
+      ],
+      "categorical_columns": [
+        "Sex"
+      ],
+      "reference_epochs": 2000
+    },
+    "airfoil": {
+      "display_name": "Airfoil",
+      "file": "airfoilGene.csv",
+      "context_columns": [
+        "f",
+        "alpha",
+        "c",
+        "U_infinity",
+        "delta"
+      ],
+      "behavior_columns": [
+        "SSPL"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 10000
+    },
+    "bodyfat": {
+      "display_name": "BodyFat",
+      "file": "bodyfatGene.csv",
+      "context_columns": [
+        "Age",
+        "Weight",
+        "Height",
+        "Neck",
+        "Chest",
+        "Abdomen",
+        "Hip",
+        "Thigh",
+        "Knee",
+        "Ankle",
+        "Biceps",
+        "Forearm"
+      ],
+      "behavior_columns": [
+        "Density",
+        "BodyFat"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 500
+    },
+    "boston": {
+      "display_name": "Boston",
+      "file": "bostonGene.csv",
+      "context_columns": [
+        "CRIM",
+        "ZN",
+        "INDUS",
+        "CHAS",
+        "NOX",
+        "RM",
+        "AGE",
+        "DIS",
+        "RAD",
+        "TAX",
+        "PTRATIO",
+        "B",
+        "LSTAT"
+      ],
+      "behavior_columns": [
+        "MEDV"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 500
+    },
+    "concrete": {
+      "display_name": "Concrete",
+      "file": "ConcreteGene.csv",
+      "context_columns": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "Age"
+      ],
+      "behavior_columns": [
+        "Strength"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 10000
+    },
+    "elnino": {
+      "display_name": "ElNino",
+      "file": "elninoGene.csv",
+      "context_columns": [
+        "Year",
+        "Month",
+        "Day",
+        "Date",
+        "Latitude",
+        "Longitude"
+      ],
+      "behavior_columns": [
+        "Zonal_Winds",
+        "Meridional_Winds",
+        "Humidity",
+        "Air_Temp",
+        "Sea_Surface_Temp"
+      ],
+      "categorical_columns": [
+        "Year",
+        "Month",
+        "Day"
+      ],
+      "reference_epochs": 5000
+    },
+    "energy": {
+      "display_name": "Energy",
+      "file": "EnergyGene.csv",
+      "context_columns": [
+        "X1",
+        "X2",
+        "X3",
+        "X4",
+        "X5",
+        "X6",
+        "X7",
+        "X8"
+      ],
+      "behavior_columns": [
+        "Y1",
+        "Y2"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 5000
+    },
+    "fish": {
+      "display_name": "FishWeight",
+      "file": "fishGene.csv",
+      "context_columns": [
+        "Species",
+        "Length1",
+        "Length2",
+        "Length3",
+        "Height",
+        "Width"
+      ],
+      "behavior_columns": [
+        "Weight"
+      ],
+      "categorical_columns": [
+        "Species"
+      ],
+      "reference_epochs": 200
+    },
+    "forestfires": {
+      "display_name": "ForestFires",
+      "file": "forestFiresGene.csv",
+      "context_columns": [
+        "X",
+        "Y",
+        "month",
+        "day"
+      ],
+      "behavior_columns": [
+        "FFMC",
+        "DMC",
+        "DC",
+        "ISI",
+        "temp",
+        "RH",
+        "wind",
+        "rain",
+        "area"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 5000,
+      "notes": "Month and day use the stored numeric codes."
+    },
+    "gasemission": {
+      "display_name": "GasEmission",
+      "file": "gasEmissionGene.csv",
+      "context_columns": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "CDP"
+      ],
+      "behavior_columns": [
+        "TEY",
+        "CO",
+        "NOX"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 500
+    },
+    "heartfailure": {
+      "display_name": "HeartFailure",
+      "file": "heartFailureGene.csv",
+      "context_columns": [
+        "age",
+        "sex",
+        "smoking",
+        "diabetes",
+        "high_blood_pressure",
+        "anaemia"
+      ],
+      "behavior_columns": [
+        "creatinine_phosphokinase",
+        "ejection_fraction",
+        "platelets",
+        "serum_creatinine",
+        "serum_sodium",
+        "time"
+      ],
+      "categorical_columns": [
+        "sex",
+        "smoking",
+        "diabetes",
+        "high_blood_pressure",
+        "anaemia"
+      ],
+      "reference_epochs": 1000,
+      "notes": "DEATH_EVENT is excluded from model features; ground_truth is used for evaluation."
+    },
+    "hepatitis": {
+      "display_name": "Hepatitis",
+      "file": "hepatitisGene.csv",
+      "context_columns": [
+        "Sex",
+        "Age",
+        "Category"
+      ],
+      "behavior_columns": [
+        "ALB",
+        "ALP",
+        "ALT",
+        "AST",
+        "BIL",
+        "CHE",
+        "CHOL",
+        "CREA",
+        "GGT",
+        "PROT"
+      ],
+      "categorical_columns": [
+        "Sex",
+        "Category"
+      ],
+      "reference_epochs": 10000
+    },
+    "indianliver": {
+      "display_name": "IndianLiver",
+      "file": "indianLiverPatientGene.csv",
+      "context_columns": [
+        "Age",
+        "Gender",
+        "Selector"
+      ],
+      "behavior_columns": [
+        "Total_Bilirubin",
+        "Direct_Bilirubin",
+        "Alkaline_Phosphotase",
+        "Alamine_Aminotransferase",
+        "Aspartate_Aminotransferase",
+        "Total_Protiens",
+        "Albumin",
+        "Albumin_and_Globulin_Ratio"
+      ],
+      "categorical_columns": [
+        "Gender",
+        "Selector"
+      ],
+      "reference_epochs": 5000
+    },
+    "maintenance": {
+      "display_name": "Maintenance",
+      "file": "MaintenanceGene.csv",
+      "context_columns": [
+        "LeverPosition",
+        "GTT",
+        "GTn",
+        "GGn",
+        "Ts",
+        "Tp",
+        "T48",
+        "T1",
+        "T2",
+        "P48",
+        "P1",
+        "P2",
+        "Pexh",
+        "TIC",
+        "mf"
+      ],
+      "behavior_columns": [
+        "ShipSpeed",
+        "CompressorDecay",
+        "TurbineDecay"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 5000
+    },
+    "parkinson": {
+      "display_name": "Parkinson",
+      "file": "parkinsonGene.csv",
+      "context_columns": [
+        "subject",
+        "age",
+        "sex",
+        "test_time",
+        "Jitter",
+        "Jitter_Abs",
+        "Jitter_RAP",
+        "Jitter_PPQ5",
+        "Jitter_DDP",
+        "Shimmer",
+        "Shimmer_dB",
+        "Shimmer_APQ3",
+        "Shimmer_APQ5",
+        "Shimmer_APQ11",
+        "Shimmer_DDA",
+        "NHR",
+        "HNR",
+        "RPDE",
+        "DFA",
+        "PPE"
+      ],
+      "behavior_columns": [
+        "motor_UPDRS",
+        "total_UPDRS"
+      ],
+      "categorical_columns": [
+        "sex"
+      ],
+      "reference_epochs": 5000
+    },
+    "power": {
+      "display_name": "PowerPlant",
+      "file": "powerGene.csv",
+      "context_columns": [
+        "AT",
+        "V",
+        "AP",
+        "RH"
+      ],
+      "behavior_columns": [
+        "PE"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 10000
+    },
+    "qsranking": {
+      "display_name": "QSRanking",
+      "file": "QSRankingGene.csv",
+      "context_columns": [
+        "World2018",
+        "National2018",
+        "World2019",
+        "National2019",
+        "World2020",
+        "National2020",
+        "Country"
+      ],
+      "behavior_columns": [
+        "Academic Reputation",
+        "Employer Reputation",
+        "Faculty Student",
+        "Citations per Faculty",
+        "International Faculty",
+        "International Students"
+      ],
+      "categorical_columns": [
+        "Country"
+      ],
+      "reference_epochs": 200,
+      "notes": "SIZE, FOCUS, RESEARCH INTENSITY, AGE and STATUS are excluded from model features."
+    },
+    "synmachine": {
+      "display_name": "SynMachine",
+      "file": "synchronousMachineGene.csv",
+      "context_columns": [
+        "Iy",
+        "PF",
+        "e",
+        "dIf"
+      ],
+      "behavior_columns": [
+        "If"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 500
+    },
+    "toxicity": {
+      "display_name": "Toxicity",
+      "file": "toxicityGene.csv",
+      "context_columns": [
+        "CIC0",
+        "SM1_Dz",
+        "GATS1i",
+        "NdsCH",
+        "NdssC",
+        "MLOGP"
+      ],
+      "behavior_columns": [
+        "LC50"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 500
+    },
+    "yacht": {
+      "display_name": "Yacht",
+      "file": "yachtHydrodynamicsGene.csv",
+      "context_columns": [
+        "Longitudinal_position",
+        "Prismatic_coefficient",
+        "Length_displacement_ratio",
+        "Beam_draught_ratio",
+        "Length_beam_ratio",
+        "Froude_number"
+      ],
+      "behavior_columns": [
+        "resistance"
+      ],
+      "categorical_columns": [],
+      "reference_epochs": 500
+    }
+  }
+}
