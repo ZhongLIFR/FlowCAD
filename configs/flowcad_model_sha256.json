@@ -1,0 +1,8 @@
+{
+  "flowcad/__init__.py": "0be010724023614ccb4c19c244a8dd8ef0aba5a44f4d788a58cf7e21c7193e38",
+  "flowcad/checkpoints.py": "ca296e5e0f7afb7cd73952aa46b686970b1fdbe858a42edac2d5fbb5bf568fdb",
+  "flowcad/data.py": "ccf610c08f6e802ad509156afcd56c13dbd85c348fecea891af925990232e39a",
+  "flowcad/detector.py": "1bf01d6e5d66d8311da37588c9c4eb10a1fdc128f67a88667ca409faa6603ce2",
+  "flowcad/metrics.py": "118697d45bae65e5933bf6eee55c6eab371b96e4338d294b70d72db56a86095d",
+  "flowcad/reference.py": "19a8da32429b31685542c662eab323056de897b9e003e2ab036ecbcedd6d6707"
+}

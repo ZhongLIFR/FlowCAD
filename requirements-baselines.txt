@@ -1,0 +1,5 @@
+-r requirements.txt
+matplotlib==3.9.2
+pyod==2.0.3
+numba==0.60.0
+llvmlite==0.43.0

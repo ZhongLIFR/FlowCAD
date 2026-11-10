@@ -1,0 +1,1993 @@
+{
+  "benchmark_script": "Code/MultipleRunningAverage/AverageTest.py",
+  "benchmark_script_sha256": "c6c39a0a9c7c9f38dd9f2d15636295a95690871f43a19d65326b6f56bfee9568",
+  "datasets": {
+    "abalone": {
+      "abalone_reference_check": {
+        "commit": "c8a93c86244078bec51e7b9b4460f135acda78e5",
+        "path": "Data/TempFiles/abaloneGene.csv",
+        "sha256": "8d86825f552dff6fa01b19444de134bfbe0e902408b7973ef1b54c0a21ed85fc",
+        "verification": "identical label vector and all values agree within 1e-12"
+      },
+      "behavior_columns": [
+        "Whole weight",
+        "Shucked weight",
+        "Viscera weight",
+        "Shell weight",
+        "Rings"
+      ],
+      "benchmark_columns": [
+        "Sex",
+        "Length",
+        "Diameter",
+        "Height",
+        "Whole weight",
+        "Shucked weight",
+        "Viscera weight",
+        "Shell weight",
+        "Rings"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 5,
+      "categorical_columns": [
+        "Sex"
+      ],
+      "context_columns": [
+        "Sex",
+        "Length",
+        "Diameter",
+        "Height"
+      ],
+      "display_name": "Abalone",
+      "files": {
+        "42": {
+          "path": "abalone/seed_42.csv",
+          "sha256": "c5ea048375723aa74fb27881cdbd28c16d52f96d4e575656b456278e82330822"
+        },
+        "43": {
+          "path": "abalone/seed_43.csv",
+          "sha256": "f3b4e46bafb6b2e3b2aad292218bd54189f17f63d65e59b1e283eb855585d40e"
+        },
+        "44": {
+          "path": "abalone/seed_44.csv",
+          "sha256": "d03082f2d2495125283f4e7e57d7a0f3c675ddf86e10fd180c158e0bdfcc67fb"
+        },
+        "45": {
+          "path": "abalone/seed_45.csv",
+          "sha256": "196125d2362f873fdea07c41de1aa0366caeb9ded068455099200d3ecac40aaf"
+        },
+        "46": {
+          "path": "abalone/seed_46.csv",
+          "sha256": "44aace48a487974e9f872e617e33123207c97c220f28157ef55b71e09e1473f3"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "n_anomalies": 100,
+      "n_rows": 4177,
+      "n_rows_before_downsampling": 4177,
+      "published_n_rows": 4177,
+      "raw_path": "Data/RawData/abalone.csv",
+      "raw_rows": 4177,
+      "raw_sha256": "bce2d65d5738bea913d752d04f980b56f3603e5f2c578ff15fd44947bd6f5c19",
+      "scaled_columns": [
+        "Whole weight",
+        "Shucked weight",
+        "Viscera weight",
+        "Shell weight",
+        "Rings"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "airfoil": {
+      "behavior_columns": [
+        "SSPL"
+      ],
+      "benchmark_columns": [
+        "f",
+        "alpha",
+        "c",
+        "U_infinity",
+        "delta",
+        "SSPL"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "f",
+        "alpha",
+        "c",
+        "U_infinity",
+        "delta"
+      ],
+      "display_name": "Airfoil",
+      "files": {
+        "42": {
+          "path": "airfoil/seed_42.csv",
+          "sha256": "1a1f5bafddb530b08674d13f9f3dd4df8f8ce95096e88ec54e85cedd92a7378f"
+        },
+        "43": {
+          "path": "airfoil/seed_43.csv",
+          "sha256": "7d4d999f233915d83cc30c46409b2fd078a3ccf305a52422e6c16fa629f6bd4b"
+        },
+        "44": {
+          "path": "airfoil/seed_44.csv",
+          "sha256": "7b5993742a0fe5716342d4c336bcd28fcdefc6e4153e75cf36c4e509f122357a"
+        },
+        "45": {
+          "path": "airfoil/seed_45.csv",
+          "sha256": "e55d138ba7367a3c0a3038d7b203baaa70734d474646ca83e40294ac654979c9"
+        },
+        "46": {
+          "path": "airfoil/seed_46.csv",
+          "sha256": "a9c5e58ec2485f8a88620b849b5c804d257c692bc9db6e1f6a2888cf181341b0"
+        },
+        "47": {
+          "path": "airfoil/seed_47.csv",
+          "sha256": "10c797e1939c356c574f02e9fda9c98f763a2679a4c1de3522b2afda3f26649e"
+        },
+        "48": {
+          "path": "airfoil/seed_48.csv",
+          "sha256": "5a16c54c8a0ae7f01c47ebb5887801a095f78c45803f27b023e2cf8827e05e81"
+        },
+        "49": {
+          "path": "airfoil/seed_49.csv",
+          "sha256": "4824819442252f392c54c265041fa888f6e8570163363a0c6dffb568319b5452"
+        },
+        "50": {
+          "path": "airfoil/seed_50.csv",
+          "sha256": "96f98137d03ac47de6d07e352a2594941ba7a3930ef507c84337068c0c77a23c"
+        },
+        "51": {
+          "path": "airfoil/seed_51.csv",
+          "sha256": "3bdb54ea9aab74a66d740f4e9b541c7e87b3745b7bc3fefc7b2ebe4f7b6fd06e"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 70,
+      "n_rows": 1503,
+      "n_rows_before_downsampling": 1503,
+      "published_n_rows": 1503,
+      "raw_path": "Data/RawData/airfoil.csv",
+      "raw_rows": 1503,
+      "raw_sha256": "79bbe31e7b1b893dceb8f706e3ad26ae388ec0e4f8db4306f3c5061591b91abd",
+      "scaled_columns": [
+        "SSPL"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "bodyfat": {
+      "behavior_columns": [
+        "Density",
+        "BodyFat"
+      ],
+      "benchmark_columns": [
+        "Density",
+        "BodyFat",
+        "Age",
+        "Weight",
+        "Height",
+        "Neck",
+        "Chest",
+        "Abdomen",
+        "Hip",
+        "Thigh",
+        "Knee",
+        "Ankle",
+        "Biceps",
+        "Forearm"
+      ],
+      "benchmark_k": 126,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "Age",
+        "Weight",
+        "Height",
+        "Neck",
+        "Chest",
+        "Abdomen",
+        "Hip",
+        "Thigh",
+        "Knee",
+        "Ankle",
+        "Biceps",
+        "Forearm"
+      ],
+      "display_name": "BodyFat",
+      "files": {
+        "42": {
+          "path": "bodyfat/seed_42.csv",
+          "sha256": "732f66f111af417b54042b4cd8d50dfcfee4925d356956b7937f13ad4a63dcfb"
+        },
+        "43": {
+          "path": "bodyfat/seed_43.csv",
+          "sha256": "2317e210173290d1d72381cb1c6d85705f7c7382e494c57b14883dd7f6ba271b"
+        },
+        "44": {
+          "path": "bodyfat/seed_44.csv",
+          "sha256": "b85da264bc64b4a0135189a68494055a3a0173cea0f37da6877275fa9a3d7f75"
+        },
+        "45": {
+          "path": "bodyfat/seed_45.csv",
+          "sha256": "363e80f96359a118bc67ada636518cc64c6cfbbecdd425dec1ba4ff675a90aa9"
+        },
+        "46": {
+          "path": "bodyfat/seed_46.csv",
+          "sha256": "3458b375061913cc051460961395542d5440b43408bd372d9e4121774781e40a"
+        },
+        "47": {
+          "path": "bodyfat/seed_47.csv",
+          "sha256": "b4f8301d215b45d13630627b316782dd7fc3bf0e899b8019911885bb35e705f4"
+        },
+        "48": {
+          "path": "bodyfat/seed_48.csv",
+          "sha256": "b9d9672b8d3f51e04c05e8da374426a749dc27c85ae422d0ad37f076ba2fc868"
+        },
+        "49": {
+          "path": "bodyfat/seed_49.csv",
+          "sha256": "eef14bcc1008d23fd4e1183e1e1e2ce85b8cadd299c474f902fd85a3f230a4db"
+        },
+        "50": {
+          "path": "bodyfat/seed_50.csv",
+          "sha256": "a94e3789b7733dc0e2f4c66b3adfd6e2861be50d671e9b4734bfe29f15b32853"
+        },
+        "51": {
+          "path": "bodyfat/seed_51.csv",
+          "sha256": "dae3ed83b9b5467401754ae1d6fc004c04760e23e02cad571efdf52059176711"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 20,
+      "n_rows": 252,
+      "n_rows_before_downsampling": 252,
+      "published_n_rows": 252,
+      "raw_path": "Data/RawData/bodyfat.csv",
+      "raw_rows": 252,
+      "raw_sha256": "4da0e256cb3ebd9c4e5591c32131d31a5e81eb5e7d353555c19bb4addded9a55",
+      "scaled_columns": [
+        "Density",
+        "BodyFat"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "boston": {
+      "behavior_columns": [
+        "MEDV"
+      ],
+      "benchmark_columns": [
+        "CRIM",
+        "ZN",
+        "INDUS",
+        "CHAS",
+        "NOX",
+        "RM",
+        "AGE",
+        "DIS",
+        "RAD",
+        "TAX",
+        "PTRATIO",
+        "B",
+        "LSTAT",
+        "MEDV"
+      ],
+      "benchmark_k": 253,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "CRIM",
+        "ZN",
+        "INDUS",
+        "CHAS",
+        "NOX",
+        "RM",
+        "AGE",
+        "DIS",
+        "RAD",
+        "TAX",
+        "PTRATIO",
+        "B",
+        "LSTAT"
+      ],
+      "display_name": "Boston",
+      "files": {
+        "42": {
+          "path": "boston/seed_42.csv",
+          "sha256": "f6582db93863af8bf9969bf74f7773a6802d21a2a6b02657299f07381bb3159b"
+        },
+        "43": {
+          "path": "boston/seed_43.csv",
+          "sha256": "647ccbe6b2586ec0528759bb135a6b1eab014820c5ab3eb3ada1b51c4fdcf448"
+        },
+        "44": {
+          "path": "boston/seed_44.csv",
+          "sha256": "7e0e559a58e278ad2c5505b002e9ed237f9dc4908cff3bd29e8c01f8b958655b"
+        },
+        "45": {
+          "path": "boston/seed_45.csv",
+          "sha256": "76b611890c000a27dc074834d98f1335b55377b97151d2c9181790711f2a5164"
+        },
+        "46": {
+          "path": "boston/seed_46.csv",
+          "sha256": "640f0dfea8aefecbb124dc9972a288496fd270e1c71e76528edd29319ca5ead0"
+        },
+        "47": {
+          "path": "boston/seed_47.csv",
+          "sha256": "aedcc4fb6a1c5f26f4c119f128d5f44b7eda3a7bfa90a7de8ee293793cbe3a3f"
+        },
+        "48": {
+          "path": "boston/seed_48.csv",
+          "sha256": "407e3a6cc5ec8d639b2d55508f8624d1845d9f98ed3f9a6d56d37a84b21085d7"
+        },
+        "49": {
+          "path": "boston/seed_49.csv",
+          "sha256": "738aeb669085e9f45535079d5cc01568144a657d01e896eeb68ae373ac0b0d30"
+        },
+        "50": {
+          "path": "boston/seed_50.csv",
+          "sha256": "627dd10c8b8d0ac5ea7314638fa82bc03aae4053973625884c8e0d517fa51189"
+        },
+        "51": {
+          "path": "boston/seed_51.csv",
+          "sha256": "d71d6fea3094fff90d04aa9ebb4d2843da21e68b6513aa763d3fd3ff9267fc03"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 40,
+      "n_rows": 506,
+      "n_rows_before_downsampling": 506,
+      "published_n_rows": 506,
+      "raw_path": "Data/RawData/boston.csv",
+      "raw_rows": 506,
+      "raw_sha256": "ebf8b4a9ceaf375f9591be7b862b3eafc6efc952251e77f09dd6c2df9e216ba0",
+      "scaled_columns": [
+        "MEDV"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "concrete": {
+      "behavior_columns": [
+        "Strength"
+      ],
+      "benchmark_columns": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "Age",
+        "Strength"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "Age"
+      ],
+      "display_name": "Concrete",
+      "files": {
+        "42": {
+          "path": "concrete/seed_42.csv",
+          "sha256": "299dbec2b5e850f46724f31f086e8edb9445974dfd2f16d51a7423ac72316521"
+        },
+        "43": {
+          "path": "concrete/seed_43.csv",
+          "sha256": "dc2615cc5c8bb95fc4b7cc45482b6f8a29f921df55e0a1dcbc60334596cfd5b2"
+        },
+        "44": {
+          "path": "concrete/seed_44.csv",
+          "sha256": "ca284e5ae7bdf30caff39b8c5bec8009db22c867a5b38e5a8d244b2fcf3234f1"
+        },
+        "45": {
+          "path": "concrete/seed_45.csv",
+          "sha256": "f135bf832d194cf5ac7bb2d4b191f571c4d8ede498cdcacdb1a26fd200cc044f"
+        },
+        "46": {
+          "path": "concrete/seed_46.csv",
+          "sha256": "ed77015b3da36dd2103af8bd09596a561f93acea87d687c8b4a635397ef01ff1"
+        },
+        "47": {
+          "path": "concrete/seed_47.csv",
+          "sha256": "b41da559fc5f065a45a4bd1b42fa1d0a2eed651927f8e712bd0d29dea20e3c15"
+        },
+        "48": {
+          "path": "concrete/seed_48.csv",
+          "sha256": "53fe99f94dc330e0f1d6d2fad9cca6241327b40e5143b1ed8928822a17280216"
+        },
+        "49": {
+          "path": "concrete/seed_49.csv",
+          "sha256": "21ecf7169b82a2f03466b0de1e5718fea9acadecf267913e92274e7dba9f4a75"
+        },
+        "50": {
+          "path": "concrete/seed_50.csv",
+          "sha256": "b2c1ea2fc60a040190fdf2c3f1968b9ee2a6e044decdbf969f3394f84d4c7324"
+        },
+        "51": {
+          "path": "concrete/seed_51.csv",
+          "sha256": "97e3ccd352355b8e55d93351aba8ec0c84fb7c809449711c9e2c706d64501ad3"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 50,
+      "n_rows": 1030,
+      "n_rows_before_downsampling": 1030,
+      "published_n_rows": 1030,
+      "raw_path": "Data/RawData/Concrete.csv",
+      "raw_rows": 1030,
+      "raw_sha256": "0cb0348d49c89d5ddc3ac2bb993051ca5ec2987869b844d6a05ccb2a7b85fa39",
+      "scaled_columns": [
+        "Strength"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "elnino": {
+      "behavior_columns": [
+        "Zonal_Winds",
+        "Meridional_Winds",
+        "Humidity",
+        "Air_Temp",
+        "Sea_Surface_Temp"
+      ],
+      "benchmark_columns": [
+        "Year",
+        "Month",
+        "Day",
+        "Date",
+        "Latitude",
+        "Longitude",
+        "Zonal_Winds",
+        "Meridional_Winds",
+        "Humidity",
+        "Air_Temp",
+        "Sea_Surface_Temp"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 5,
+      "categorical_columns": [
+        "Year",
+        "Month",
+        "Day"
+      ],
+      "context_columns": [
+        "Year",
+        "Month",
+        "Day",
+        "Date",
+        "Latitude",
+        "Longitude"
+      ],
+      "display_name": "ElNino",
+      "files": {
+        "42": {
+          "path": "elnino/seed_42.csv",
+          "sha256": "582f0f9306e6c000fa42d89f830f8091646b26b06b8e393fc6c89fbd9a3ce301"
+        },
+        "43": {
+          "path": "elnino/seed_43.csv",
+          "sha256": "394259c066be955f4af8387fafcb818c622eb4ebbaef14e2d8599f864894ce65"
+        },
+        "44": {
+          "path": "elnino/seed_44.csv",
+          "sha256": "83a1592caa11fcc056ba103ccd7af0f482c75dc1eba6741500a7a71d18776547"
+        },
+        "45": {
+          "path": "elnino/seed_45.csv",
+          "sha256": "7f3fe44b21c784558617ee6c7d60e203127c1c75949c56fa2f26f6fdcc5e0d1e"
+        },
+        "46": {
+          "path": "elnino/seed_46.csv",
+          "sha256": "a1ad4f93656e0ef9aeefbf9d537a69b84ea922cb46da67118237913a86a1d36d"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "n_anomalies": 200,
+      "n_rows": 20000,
+      "n_rows_before_downsampling": 93935,
+      "published_n_rows": 20000,
+      "raw_path": "Data/RawData/elnino.csv",
+      "raw_rows": 93935,
+      "raw_sha256": "8d6a1dba361565fb67a9586e46e3c2559ecb7590b6c17488681bdb599f8101e6",
+      "scaled_columns": [
+        "Zonal_Winds",
+        "Meridional_Winds",
+        "Humidity",
+        "Air_Temp",
+        "Sea_Surface_Temp"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "energy": {
+      "behavior_columns": [
+        "Y1",
+        "Y2"
+      ],
+      "benchmark_columns": [
+        "X1",
+        "X2",
+        "X3",
+        "X4",
+        "X5",
+        "X6",
+        "X7",
+        "X8",
+        "Y1",
+        "Y2"
+      ],
+      "benchmark_k": 384,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "X1",
+        "X2",
+        "X3",
+        "X4",
+        "X5",
+        "X6",
+        "X7",
+        "X8"
+      ],
+      "display_name": "Energy",
+      "files": {
+        "42": {
+          "path": "energy/seed_42.csv",
+          "sha256": "57491fa4d317ee108b000711ecfba5b0bcbf497439750297799a96912da7f069"
+        },
+        "43": {
+          "path": "energy/seed_43.csv",
+          "sha256": "087c8f9c907a09f9b392bf060ce69f4d7390b9609f737c6e72c8670dc8871e89"
+        },
+        "44": {
+          "path": "energy/seed_44.csv",
+          "sha256": "0db228e21fc89d4fc3445846cb22a6717edef388361a0df907b6baf4f91eb4ae"
+        },
+        "45": {
+          "path": "energy/seed_45.csv",
+          "sha256": "c35b17b6acf0e1f8fd7cafbe2977dfb3f96792c5eef12c002f01ca3b96286562"
+        },
+        "46": {
+          "path": "energy/seed_46.csv",
+          "sha256": "2363a4c3ebd5eea92c108049d7e831dfbbf8e1240e10c213910d792b5c155d09"
+        },
+        "47": {
+          "path": "energy/seed_47.csv",
+          "sha256": "fc3c7e36819ef6870fee74eeb3eb2a470cd87d3ac1302f4479f742463da2bfb7"
+        },
+        "48": {
+          "path": "energy/seed_48.csv",
+          "sha256": "57b01ea8ab9b738e4061d88eb25382880c727b9f146299451551ba8c1a781eba"
+        },
+        "49": {
+          "path": "energy/seed_49.csv",
+          "sha256": "b8facc091cd0577cb4942e75aec8bec4a808a690fd43d4ba483f6d54e5f264f5"
+        },
+        "50": {
+          "path": "energy/seed_50.csv",
+          "sha256": "0e818001c2b24827597ff47ee93e478a30f7ae9f037ecc3e856f62b1df0d4283"
+        },
+        "51": {
+          "path": "energy/seed_51.csv",
+          "sha256": "31d1aaeb99d88ae810287f59422ca484ac69ba4a9d9844e6244cb7d87a18c976"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 50,
+      "n_rows": 768,
+      "n_rows_before_downsampling": 768,
+      "published_n_rows": 768,
+      "raw_path": "Data/RawData/Energy.csv",
+      "raw_rows": 768,
+      "raw_sha256": "b3ab61f6116d8c20820fc042884df005edc4922071c1c7849328a2e7ac613593",
+      "scaled_columns": [
+        "Y1",
+        "Y2"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "fish": {
+      "behavior_columns": [
+        "Weight"
+      ],
+      "benchmark_columns": [
+        "Species",
+        "Weight",
+        "Length1",
+        "Length2",
+        "Length3",
+        "Height",
+        "Width"
+      ],
+      "benchmark_k": 80,
+      "benchmark_runs": 10,
+      "categorical_columns": [
+        "Species"
+      ],
+      "context_columns": [
+        "Species",
+        "Length1",
+        "Length2",
+        "Length3",
+        "Height",
+        "Width"
+      ],
+      "display_name": "FishWeight",
+      "files": {
+        "42": {
+          "path": "fish/seed_42.csv",
+          "sha256": "44dd6001d49a405420d1e3687323fec40127ada187cba8f006adec929078e009"
+        },
+        "43": {
+          "path": "fish/seed_43.csv",
+          "sha256": "e58dbd8e26b46af9b7e985a5e0de729a4ff5a4c76a2ffe6cb8965a6a234b3d65"
+        },
+        "44": {
+          "path": "fish/seed_44.csv",
+          "sha256": "553678d4c557763e209359abdd98e18ddd2878d70bcad92c057053de9a99ea6b"
+        },
+        "45": {
+          "path": "fish/seed_45.csv",
+          "sha256": "3ab95efc4c2a82aac17d4b36215569a54642bd43e3dcb09b3516898e937f3c14"
+        },
+        "46": {
+          "path": "fish/seed_46.csv",
+          "sha256": "f357a600c682a82dbeb6733e6a364a46215ab6580118eddb646504571bdffaa6"
+        },
+        "47": {
+          "path": "fish/seed_47.csv",
+          "sha256": "8b59db268e9999e5202ebe9e5915a2790cd574752682860dfa1f9499a074550b"
+        },
+        "48": {
+          "path": "fish/seed_48.csv",
+          "sha256": "99b1b91d2a9b420a3cd699ebff1539d2520f4f77c601ed4dd43c3741690c0fac"
+        },
+        "49": {
+          "path": "fish/seed_49.csv",
+          "sha256": "5e4ff3c7a276bf97eedd3f062d3fe397a2fcd3198eaea71a5d8e0a6bea60be54"
+        },
+        "50": {
+          "path": "fish/seed_50.csv",
+          "sha256": "dd17bb9f62585dd2bc375e026d8c9c59e6a7108ad2e5cebfdc7a10a3daf2ca67"
+        },
+        "51": {
+          "path": "fish/seed_51.csv",
+          "sha256": "4ec221c089de3b4f1f64ba5cc67e72fd7d588b793818ca1fb833579f7bbfef78"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 15,
+      "n_rows": 159,
+      "n_rows_before_downsampling": 159,
+      "published_n_rows": 157,
+      "raw_path": "Data/RawData/fish.csv",
+      "raw_rows": 159,
+      "raw_sha256": "81c29d80fed910417a4233782f7fe859a2df9554d19cb686d0c121920ad2e5d3",
+      "sample_count_note": "The released historical raw CSV has 159 complete rows; no rows were removed to force the published count of 157.",
+      "scaled_columns": [
+        "Weight"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "forestfires": {
+      "behavior_columns": [
+        "FFMC",
+        "DMC",
+        "DC",
+        "ISI",
+        "temp",
+        "RH",
+        "wind",
+        "rain",
+        "area"
+      ],
+      "benchmark_columns": [
+        "X",
+        "Y",
+        "month",
+        "day",
+        "FFMC",
+        "DMC",
+        "DC",
+        "ISI",
+        "temp",
+        "RH",
+        "wind",
+        "rain",
+        "area"
+      ],
+      "benchmark_k": 258,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "X",
+        "Y",
+        "month",
+        "day"
+      ],
+      "display_name": "ForestFires",
+      "files": {
+        "42": {
+          "path": "forestfires/seed_42.csv",
+          "sha256": "a8eb4d3c6018f7c0d864f4d5b47daa0b34cac85ef2b1a53849025578bda034f2"
+        },
+        "43": {
+          "path": "forestfires/seed_43.csv",
+          "sha256": "47a0d0d5e9f47c6d26008786ec342c81ede3a0c60aeeb879b2b29b814b117cfd"
+        },
+        "44": {
+          "path": "forestfires/seed_44.csv",
+          "sha256": "b22b3f9db7ba2ee37ecd0c1a7ebaa8751941a3c9cb4a848f6ee0364bc4b14b99"
+        },
+        "45": {
+          "path": "forestfires/seed_45.csv",
+          "sha256": "d767c62f8dc7b33d739a9db7620475692b5e29075eced8916aa571e40d936eca"
+        },
+        "46": {
+          "path": "forestfires/seed_46.csv",
+          "sha256": "5a57aaebf8c54cf936482c03579050e181088586332c4100d4a2a8016c99bfd4"
+        },
+        "47": {
+          "path": "forestfires/seed_47.csv",
+          "sha256": "376d67a62c654c8c722f0985f1ad2083248ddd1b93801ff49f974e3ba77f7236"
+        },
+        "48": {
+          "path": "forestfires/seed_48.csv",
+          "sha256": "0b127ac37f92053292ac3f845ca4b5787655008cd67602f589cd653cdfdd5fb9"
+        },
+        "49": {
+          "path": "forestfires/seed_49.csv",
+          "sha256": "2e382d82d69efe7f90b272f28f99901d305db8a3c6014dff8f89ac249e2c383d"
+        },
+        "50": {
+          "path": "forestfires/seed_50.csv",
+          "sha256": "f957d008b17040b69ee195b14ca3588726420d95c3681d6fca8b5e02ae7f2722"
+        },
+        "51": {
+          "path": "forestfires/seed_51.csv",
+          "sha256": "56645cb9c59f5cb297c4eea45e10f2f61606e88d76012d32d490a24cafc4a901"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 50,
+      "n_rows": 517,
+      "n_rows_before_downsampling": 517,
+      "published_n_rows": 517,
+      "raw_path": "Data/RawData/forestFires.csv",
+      "raw_rows": 517,
+      "raw_sha256": "04b7840c40f368037ac5f82c0d37eef2e96da58a51e2160902429b09bfd70ff0",
+      "scaled_columns": [
+        "FFMC",
+        "DMC",
+        "DC",
+        "ISI",
+        "temp",
+        "RH",
+        "wind",
+        "rain",
+        "area"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "gasemission": {
+      "behavior_columns": [
+        "TEY",
+        "CO",
+        "NOX"
+      ],
+      "benchmark_columns": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "TEY",
+        "CDP",
+        "CO",
+        "NOX"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 5,
+      "categorical_columns": [],
+      "context_columns": [
+        "AT",
+        "AP",
+        "AH",
+        "AFDP",
+        "GTEP",
+        "TIT",
+        "TAT",
+        "CDP"
+      ],
+      "display_name": "GasEmission",
+      "files": {
+        "42": {
+          "path": "gasemission/seed_42.csv",
+          "sha256": "b9c6775b2a63731797e53c9fe377404a351bcd569fec3819f6e7e9a384963300"
+        },
+        "43": {
+          "path": "gasemission/seed_43.csv",
+          "sha256": "85dcbb460375ce6e39c7aa38b812a94aa9f239618034855978e6f67136a07f93"
+        },
+        "44": {
+          "path": "gasemission/seed_44.csv",
+          "sha256": "19133946a60d2d2916cdc4a39ae5313d92bda20a02b3420eb7a64d0ca33f32e2"
+        },
+        "45": {
+          "path": "gasemission/seed_45.csv",
+          "sha256": "7e592c081780c62d6375eeea9aea09e7bccb7668eb6f3e9b7dfab8addd0881fa"
+        },
+        "46": {
+          "path": "gasemission/seed_46.csv",
+          "sha256": "f7c3727f88dae623c4641b7897d8caaa7b497c485832697a86ac4642e4983a22"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "n_anomalies": 100,
+      "n_rows": 7384,
+      "n_rows_before_downsampling": 7384,
+      "published_n_rows": 7384,
+      "raw_path": "Data/RawData/gasEmission.csv",
+      "raw_rows": 7384,
+      "raw_sha256": "c77d44f014b84ba1be6c98af7b43201b90c5bc2a0bb5d5c7cba32b91053b8b26",
+      "scaled_columns": [
+        "TEY",
+        "CO",
+        "NOX"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "heartfailure": {
+      "behavior_columns": [
+        "creatinine_phosphokinase",
+        "ejection_fraction",
+        "platelets",
+        "serum_creatinine",
+        "serum_sodium",
+        "time"
+      ],
+      "benchmark_columns": [
+        "age",
+        "sex",
+        "smoking",
+        "diabetes",
+        "high_blood_pressure",
+        "anaemia",
+        "creatinine_phosphokinase",
+        "ejection_fraction",
+        "platelets",
+        "serum_creatinine",
+        "serum_sodium",
+        "time",
+        "DEATH_EVENT"
+      ],
+      "benchmark_k": 150,
+      "benchmark_runs": 10,
+      "categorical_columns": [
+        "sex",
+        "smoking",
+        "diabetes",
+        "high_blood_pressure",
+        "anaemia"
+      ],
+      "context_columns": [
+        "age",
+        "sex",
+        "smoking",
+        "diabetes",
+        "high_blood_pressure",
+        "anaemia"
+      ],
+      "display_name": "HeartFailure",
+      "files": {
+        "42": {
+          "path": "heartfailure/seed_42.csv",
+          "sha256": "67b0475fcc518d633fd7f5c75b36d0affdc632870fe0a8534f7428e6b618c51a"
+        },
+        "43": {
+          "path": "heartfailure/seed_43.csv",
+          "sha256": "156a8fdd2e18aa2a7eb4cde54d2dba7f6d5455ca3fb3611cef15b8c57ea995ff"
+        },
+        "44": {
+          "path": "heartfailure/seed_44.csv",
+          "sha256": "b1e201c5cf1874816b347731a27a6c90de9ea1569feddf5df48470bf3664a35b"
+        },
+        "45": {
+          "path": "heartfailure/seed_45.csv",
+          "sha256": "4b5c39f1c8c0d5cc3f4ab51e28d9795ec6eec27546da98d60215e5733bf89bfc"
+        },
+        "46": {
+          "path": "heartfailure/seed_46.csv",
+          "sha256": "6fb6ed92de95fefe7bce5bce10d94ea4f2fe1b588ec5bd83e6499b9f486195ee"
+        },
+        "47": {
+          "path": "heartfailure/seed_47.csv",
+          "sha256": "927959bf2342373aea330e0906fc01a99a90f605b5da3111cc6595f71cc520f5"
+        },
+        "48": {
+          "path": "heartfailure/seed_48.csv",
+          "sha256": "0c7d94e533015d56070c38c764f76896b5ecaa79a81d23e5318d1b0d15def286"
+        },
+        "49": {
+          "path": "heartfailure/seed_49.csv",
+          "sha256": "f0f748363fc498b7c3e63d759a3b6c92c6db0bb699574b72f0ef6f877d98d065"
+        },
+        "50": {
+          "path": "heartfailure/seed_50.csv",
+          "sha256": "143f6cf3f9c66071591755df0d9469c4163ab010b06f0b5bcf58f896187674cc"
+        },
+        "51": {
+          "path": "heartfailure/seed_51.csv",
+          "sha256": "fd3da1b1e72b1bdb564444b6449fb635063f06a63b2958c232a087e2ee63b0b9"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 30,
+      "n_rows": 299,
+      "n_rows_before_downsampling": 299,
+      "published_n_rows": 299,
+      "raw_path": "Data/RawData/heartFailure.csv",
+      "raw_rows": 299,
+      "raw_sha256": "df589d6abe3cc5343ec3fa33e513813f94c952ed5d0e7f6bfdba3a43b0eb34fe",
+      "scaled_columns": [
+        "creatinine_phosphokinase",
+        "ejection_fraction",
+        "platelets",
+        "serum_creatinine",
+        "serum_sodium",
+        "time"
+      ],
+      "unused_by_conditional_models": [
+        "DEATH_EVENT"
+      ]
+    },
+    "hepatitis": {
+      "behavior_columns": [
+        "ALB",
+        "ALP",
+        "ALT",
+        "AST",
+        "BIL",
+        "CHE",
+        "CHOL",
+        "CREA",
+        "GGT",
+        "PROT"
+      ],
+      "benchmark_columns": [
+        "Category",
+        "Age",
+        "Sex",
+        "ALB",
+        "ALP",
+        "ALT",
+        "AST",
+        "BIL",
+        "CHE",
+        "CHOL",
+        "CREA",
+        "GGT",
+        "PROT"
+      ],
+      "benchmark_k": 308,
+      "benchmark_runs": 10,
+      "categorical_columns": [
+        "Sex",
+        "Category"
+      ],
+      "context_columns": [
+        "Category",
+        "Age",
+        "Sex"
+      ],
+      "display_name": "Hepatitis",
+      "files": {
+        "42": {
+          "path": "hepatitis/seed_42.csv",
+          "sha256": "73c9431b76c7e28d4f4c1d7c3f0fe3959f8cf78072428a087df34e58c87adcf9"
+        },
+        "43": {
+          "path": "hepatitis/seed_43.csv",
+          "sha256": "b1ed01edda5cc7f9b5f8a0c7eccb903f450c995fe42be926ac26654c822b283b"
+        },
+        "44": {
+          "path": "hepatitis/seed_44.csv",
+          "sha256": "289ca911e65b0dd35be7aaea151315ef424891f23e2fb15568885431d767796c"
+        },
+        "45": {
+          "path": "hepatitis/seed_45.csv",
+          "sha256": "d14fd7792b8b2438305ea37958aed1aee421d6126327d12ecbcdd9ea6a23a630"
+        },
+        "46": {
+          "path": "hepatitis/seed_46.csv",
+          "sha256": "598a9ae37d56d8c58359e463f0e85a4771b8868675c3f52d7871f52d56d7eb54"
+        },
+        "47": {
+          "path": "hepatitis/seed_47.csv",
+          "sha256": "7c87acef54fb02891846ec206151ac42b05cef81ed3721e26a8e30699415b4d7"
+        },
+        "48": {
+          "path": "hepatitis/seed_48.csv",
+          "sha256": "2d1eee7500b6043daf79836fc5ca674739b47d85e6e9c4bce53a320dba0e21f5"
+        },
+        "49": {
+          "path": "hepatitis/seed_49.csv",
+          "sha256": "3e0629a8c17a0a5f4a8a98c11d83153f35a23743cc92535547cb7c353348205d"
+        },
+        "50": {
+          "path": "hepatitis/seed_50.csv",
+          "sha256": "0622262647ad842e617746fd34ac7930c18d20a7483c64ec23d45355d138b215"
+        },
+        "51": {
+          "path": "hepatitis/seed_51.csv",
+          "sha256": "7f037e60c4faf96e3a75ce5a0ee32853b500bb6c48143301b23a0508fc646ced"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": false,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 30,
+      "n_rows": 589,
+      "n_rows_before_downsampling": 589,
+      "published_n_rows": 615,
+      "raw_path": "Data/RawData/hepatitis.csv",
+      "raw_rows": 589,
+      "raw_sha256": "3251e568438f557d0a38fe0355b2be024cde1bf0d6e3525ceb50ae14a4c48d13",
+      "sample_count_note": "The released source and missing-value processing yield 589 rows; Appendix B records removing 26 of 615.",
+      "scaled_columns": [
+        "ALB",
+        "ALP",
+        "ALT",
+        "AST",
+        "BIL",
+        "CHE",
+        "CHOL",
+        "CREA",
+        "GGT",
+        "PROT"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "indianliver": {
+      "behavior_columns": [
+        "Total_Bilirubin",
+        "Direct_Bilirubin",
+        "Alkaline_Phosphotase",
+        "Alamine_Aminotransferase",
+        "Aspartate_Aminotransferase",
+        "Total_Protiens",
+        "Albumin",
+        "Albumin_and_Globulin_Ratio"
+      ],
+      "benchmark_columns": [
+        "Age",
+        "Gender",
+        "Selector",
+        "Total_Bilirubin",
+        "Direct_Bilirubin",
+        "Alkaline_Phosphotase",
+        "Alamine_Aminotransferase",
+        "Aspartate_Aminotransferase",
+        "Total_Protiens",
+        "Albumin",
+        "Albumin_and_Globulin_Ratio"
+      ],
+      "benchmark_k": 290,
+      "benchmark_runs": 10,
+      "categorical_columns": [
+        "Gender",
+        "Selector"
+      ],
+      "context_columns": [
+        "Age",
+        "Gender",
+        "Selector"
+      ],
+      "display_name": "IndianLiver",
+      "files": {
+        "42": {
+          "path": "indianliver/seed_42.csv",
+          "sha256": "d512771bcc428294aa678c63568579a8fe7521966a80a4551c092d036bf6d365"
+        },
+        "43": {
+          "path": "indianliver/seed_43.csv",
+          "sha256": "369e9ad1fc06f250566e87784f9ab425a25c5439d71539a02f4d1073ed072e8b"
+        },
+        "44": {
+          "path": "indianliver/seed_44.csv",
+          "sha256": "607016ece8b9465a71ae214885c5e2fe4b04235f20c62ebf8f0a3f0f8481cffd"
+        },
+        "45": {
+          "path": "indianliver/seed_45.csv",
+          "sha256": "970a39b6213edc0fec9a707bf5b0e1d3b853f075a2687842b0d6003c972d9cf8"
+        },
+        "46": {
+          "path": "indianliver/seed_46.csv",
+          "sha256": "018324b75744c6d2161a2555766954ab8e1ebc51d2777fef6947571ce8b0a6e1"
+        },
+        "47": {
+          "path": "indianliver/seed_47.csv",
+          "sha256": "c875330755d8fafef0f8b13c8c5ff09f6813f64299b4b99968cdac05c2d2fdd7"
+        },
+        "48": {
+          "path": "indianliver/seed_48.csv",
+          "sha256": "fc2288e7f8569a611e50454ac6c9fd92e9f09154f00040e1415422fa7908ec16"
+        },
+        "49": {
+          "path": "indianliver/seed_49.csv",
+          "sha256": "e2cbfaaed7df89b8b9eba06799be37622f1184217ac8878604652e5e7cd689ea"
+        },
+        "50": {
+          "path": "indianliver/seed_50.csv",
+          "sha256": "316f752324fc42c1f17263149ac953c6cd0ec685664781eaa8ce4d3ff83a9ac6"
+        },
+        "51": {
+          "path": "indianliver/seed_51.csv",
+          "sha256": "118911fb2e788e04dc81e531f12de4fab916c45468c0dcda9b856fa41bdbe5d4"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 30,
+      "n_rows": 579,
+      "n_rows_before_downsampling": 579,
+      "published_n_rows": 579,
+      "raw_path": "Data/RawData/indianLiverPatient.csv",
+      "raw_rows": 579,
+      "raw_sha256": "334a9f38c9b0c76155ffc2eb7c40929f800c4cd25efb8ac53794dfe004c8cb55",
+      "scaled_columns": [
+        "Total_Bilirubin",
+        "Direct_Bilirubin",
+        "Alkaline_Phosphotase",
+        "Alamine_Aminotransferase",
+        "Aspartate_Aminotransferase",
+        "Total_Protiens",
+        "Albumin",
+        "Albumin_and_Globulin_Ratio"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "maintenance": {
+      "behavior_columns": [
+        "ShipSpeed",
+        "CompressorDecay",
+        "TurbineDecay"
+      ],
+      "benchmark_columns": [
+        "LeverPosition",
+        "ShipSpeed",
+        "GTT",
+        "GTn",
+        "GGn",
+        "Ts",
+        "Tp",
+        "T48",
+        "T1",
+        "T2",
+        "P48",
+        "P1",
+        "P2",
+        "Pexh",
+        "TIC",
+        "mf",
+        "CompressorDecay",
+        "TurbineDecay"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 5,
+      "categorical_columns": [],
+      "context_columns": [
+        "LeverPosition",
+        "GTT",
+        "GTn",
+        "GGn",
+        "Ts",
+        "Tp",
+        "T48",
+        "T1",
+        "T2",
+        "P48",
+        "P1",
+        "P2",
+        "Pexh",
+        "TIC",
+        "mf"
+      ],
+      "display_name": "Maintenance",
+      "files": {
+        "42": {
+          "path": "maintenance/seed_42.csv",
+          "sha256": "6d2066af995d2387141ca8239a4411a5686dbd674ca6583ec2853d25ec50f50b"
+        },
+        "43": {
+          "path": "maintenance/seed_43.csv",
+          "sha256": "6286dba572761d4e13eecc5bdcf66e8b78ca28d8f0bdb30582679f8004b50e90"
+        },
+        "44": {
+          "path": "maintenance/seed_44.csv",
+          "sha256": "dfb171ece7998c6e9f05d1b7f97f390330e7a8999afbc34db943081fd3149ffb"
+        },
+        "45": {
+          "path": "maintenance/seed_45.csv",
+          "sha256": "129f515ca59efa4948bb6966813607ecc9f78874d9f88fcd3fbc0cb5ed1f6c67"
+        },
+        "46": {
+          "path": "maintenance/seed_46.csv",
+          "sha256": "a3f97733160f5db62a218b89bb99acd23c472d921ea2e5f0228947ec2de48b87"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "n_anomalies": 100,
+      "n_rows": 11934,
+      "n_rows_before_downsampling": 11934,
+      "published_n_rows": 11934,
+      "raw_path": "Data/RawData/Maintenance.csv",
+      "raw_rows": 11934,
+      "raw_sha256": "5f8a8ed177db175c4cc6b9ca1f3412bc355cec71ddcadc7595ca8b4299e04ede",
+      "scaled_columns": [
+        "ShipSpeed",
+        "CompressorDecay",
+        "TurbineDecay"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "parkinson": {
+      "behavior_columns": [
+        "motor_UPDRS",
+        "total_UPDRS"
+      ],
+      "benchmark_columns": [
+        "subject",
+        "age",
+        "sex",
+        "test_time",
+        "motor_UPDRS",
+        "total_UPDRS",
+        "Jitter",
+        "Jitter_Abs",
+        "Jitter_RAP",
+        "Jitter_PPQ5",
+        "Jitter_DDP",
+        "Shimmer",
+        "Shimmer_dB",
+        "Shimmer_APQ3",
+        "Shimmer_APQ5",
+        "Shimmer_APQ11",
+        "Shimmer_DDA",
+        "NHR",
+        "HNR",
+        "RPDE",
+        "DFA",
+        "PPE"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 5,
+      "categorical_columns": [
+        "sex"
+      ],
+      "context_columns": [
+        "subject",
+        "age",
+        "sex",
+        "test_time",
+        "Jitter",
+        "Jitter_Abs",
+        "Jitter_RAP",
+        "Jitter_PPQ5",
+        "Jitter_DDP",
+        "Shimmer",
+        "Shimmer_dB",
+        "Shimmer_APQ3",
+        "Shimmer_APQ5",
+        "Shimmer_APQ11",
+        "Shimmer_DDA",
+        "NHR",
+        "HNR",
+        "RPDE",
+        "DFA",
+        "PPE"
+      ],
+      "display_name": "Parkinson",
+      "files": {
+        "42": {
+          "path": "parkinson/seed_42.csv",
+          "sha256": "8aa0305874a6e90a11b4a62a1fd2ed2bedece750fc7c8ffcff318dfcff68cfe2"
+        },
+        "43": {
+          "path": "parkinson/seed_43.csv",
+          "sha256": "62cd42deb46a416ab32fe102b9e6c82b2671e4d6b961662ff633dc9bfea35a0b"
+        },
+        "44": {
+          "path": "parkinson/seed_44.csv",
+          "sha256": "919e80ee47e55939062f2d753526538b4b67c37435f76fb3818b3b7088096ea3"
+        },
+        "45": {
+          "path": "parkinson/seed_45.csv",
+          "sha256": "8b299bc17e319ffc9ac707c4b7ddc9bba61b03531cc2f06267c13e082f46c1c9"
+        },
+        "46": {
+          "path": "parkinson/seed_46.csv",
+          "sha256": "d4afe3841ff54dd0a4b5ce0a0015c4560ad4626cef7c15451c23c1c087699bf1"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "n_anomalies": 100,
+      "n_rows": 5875,
+      "n_rows_before_downsampling": 5875,
+      "published_n_rows": 5875,
+      "raw_path": "Data/RawData/parkinson.csv",
+      "raw_rows": 5875,
+      "raw_sha256": "348a67444f6a0c5b4e2862e2ca33b5d1e44ab6ff01d7fc72899747b1613738e1",
+      "scaled_columns": [
+        "motor_UPDRS",
+        "total_UPDRS"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "power": {
+      "behavior_columns": [
+        "PE"
+      ],
+      "benchmark_columns": [
+        "AT",
+        "V",
+        "AP",
+        "RH",
+        "PE"
+      ],
+      "benchmark_k": 500,
+      "benchmark_runs": 5,
+      "categorical_columns": [],
+      "context_columns": [
+        "AT",
+        "V",
+        "AP",
+        "RH"
+      ],
+      "display_name": "PowerPlant",
+      "files": {
+        "42": {
+          "path": "power/seed_42.csv",
+          "sha256": "51beb08d1f9f2bd5b686f9148fdfa89e05ac4e7a8f9c17a4f91ad95289ea1479"
+        },
+        "43": {
+          "path": "power/seed_43.csv",
+          "sha256": "e939e93aec07f66501490eee97b19f71260537f8870e9d34d6192be69481eea7"
+        },
+        "44": {
+          "path": "power/seed_44.csv",
+          "sha256": "86dafe773526ffad0b4ffb1dd8c22a40cad38edb05b48e0c9d08913f828ec06d"
+        },
+        "45": {
+          "path": "power/seed_45.csv",
+          "sha256": "eedd0faec1dd723fe794759003db358cb638b77bd107bec30ef658860da15726"
+        },
+        "46": {
+          "path": "power/seed_46.csv",
+          "sha256": "907826788c6de169dc701dfccf405d0eb802d96731d4ec7d9ab6069e49c74d85"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "n_anomalies": 100,
+      "n_rows": 9568,
+      "n_rows_before_downsampling": 9568,
+      "published_n_rows": 9568,
+      "raw_path": "Data/RawData/power.csv",
+      "raw_rows": 9568,
+      "raw_sha256": "04b48d973f7d9e2c5a0ed1e2b35e604d9c32d6b203a88fd44d0d3bcfa0f49002",
+      "scaled_columns": [
+        "PE"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "qsranking": {
+      "behavior_columns": [
+        "Academic Reputation",
+        "Employer Reputation",
+        "Faculty Student",
+        "Citations per Faculty",
+        "International Faculty",
+        "International Students"
+      ],
+      "benchmark_columns": [
+        "World2018",
+        "National2018",
+        "World2019",
+        "National2019",
+        "World2020",
+        "National2020",
+        "Country",
+        "SIZE",
+        "FOCUS",
+        "RESEARCH INTENSITY",
+        "AGE",
+        "STATUS",
+        "Academic Reputation",
+        "Employer Reputation",
+        "Faculty Student",
+        "Citations per Faculty",
+        "International Faculty",
+        "International Students"
+      ],
+      "benchmark_k": 237,
+      "benchmark_runs": 10,
+      "categorical_columns": [
+        "Country"
+      ],
+      "context_columns": [
+        "World2018",
+        "National2018",
+        "World2019",
+        "National2019",
+        "World2020",
+        "National2020",
+        "Country"
+      ],
+      "display_name": "QSRanking",
+      "files": {
+        "42": {
+          "path": "qsranking/seed_42.csv",
+          "sha256": "fb46a86d357f03de442e805ce97c26bc06c426610067ea229ce9319d173026cd"
+        },
+        "43": {
+          "path": "qsranking/seed_43.csv",
+          "sha256": "aae0bc6f754a6fe63d94e9439f564dec138534e3ddb0dac79f6e25d66f61f7e0"
+        },
+        "44": {
+          "path": "qsranking/seed_44.csv",
+          "sha256": "0d702de95e0db43a2d57c50b7348c63cf09c147e61a13b3313ae0367dde49616"
+        },
+        "45": {
+          "path": "qsranking/seed_45.csv",
+          "sha256": "dfaeebc5a820846220e8629ebe414e266ac116eedd7487f10434c527734a1b84"
+        },
+        "46": {
+          "path": "qsranking/seed_46.csv",
+          "sha256": "b2493cd7e866babd7b21997ec374857c210306b8449d0b2a5f3798f89cdca522"
+        },
+        "47": {
+          "path": "qsranking/seed_47.csv",
+          "sha256": "3908f83ed881362a798de051f2eb773373e111e3f1412e4d98a4553d14cb8180"
+        },
+        "48": {
+          "path": "qsranking/seed_48.csv",
+          "sha256": "082aaac8ffcafd520286daf0a32d5738b7fa0c6d99706e0565c7a34b92a4d9a5"
+        },
+        "49": {
+          "path": "qsranking/seed_49.csv",
+          "sha256": "dfe8d2a519624c604fd885a0ef8229bc55bdde3c43875e3d68d27487e42a37a6"
+        },
+        "50": {
+          "path": "qsranking/seed_50.csv",
+          "sha256": "c3242efbb20ee6a2fce87629d06cb107a02c5bdbf44c90586254938931522039"
+        },
+        "51": {
+          "path": "qsranking/seed_51.csv",
+          "sha256": "a47ccd404b2d7ea80dbfb5fb8e00498ea71bc8c5e36cc717f9c5723ef83ada59"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 40,
+      "n_rows": 475,
+      "n_rows_before_downsampling": 475,
+      "published_n_rows": 475,
+      "raw_path": "Data/RawData/QSRanking.csv",
+      "raw_rows": 475,
+      "raw_sha256": "29e445234f8a2d0cec5caca6f2e8a090279f646db4f2f1855be99fa9e2d7a990",
+      "scaled_columns": [
+        "Academic Reputation",
+        "Employer Reputation",
+        "Faculty Student",
+        "Citations per Faculty",
+        "International Faculty",
+        "International Students"
+      ],
+      "unused_by_conditional_models": [
+        "SIZE",
+        "FOCUS",
+        "RESEARCH INTENSITY",
+        "AGE",
+        "STATUS"
+      ]
+    },
+    "synmachine": {
+      "behavior_columns": [
+        "If"
+      ],
+      "benchmark_columns": [
+        "Iy",
+        "PF",
+        "e",
+        "dIf",
+        "If"
+      ],
+      "benchmark_k": 275,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "Iy",
+        "PF",
+        "e",
+        "dIf"
+      ],
+      "display_name": "SynMachine",
+      "files": {
+        "42": {
+          "path": "synmachine/seed_42.csv",
+          "sha256": "ffd52bdd82a90c3aaed4f9ee77b74e42a5f9808ddbeffc81ebc45fb92980c886"
+        },
+        "43": {
+          "path": "synmachine/seed_43.csv",
+          "sha256": "48834e9fd1314d4142dcc259a0ae98c2da27631bd18f0c3b1b7ce22ad9e73758"
+        },
+        "44": {
+          "path": "synmachine/seed_44.csv",
+          "sha256": "c57be8e4c01523deab02855ded9e17b604bd7866f2636fdbf9d2b5f4910a5379"
+        },
+        "45": {
+          "path": "synmachine/seed_45.csv",
+          "sha256": "851cb69143023dec02c475c45f6cfcf94e79095ac0f13ed37658af8707bda7e8"
+        },
+        "46": {
+          "path": "synmachine/seed_46.csv",
+          "sha256": "762dc5d8581017afec80d8c49b83f11a536f10519e5ffeb250fd908f13187c7d"
+        },
+        "47": {
+          "path": "synmachine/seed_47.csv",
+          "sha256": "ab82eb922ba3f905a5f2397b5779ad7c005215aece2b44b88a85698376eefa8d"
+        },
+        "48": {
+          "path": "synmachine/seed_48.csv",
+          "sha256": "07d43b44bf407af3d7b5429484e1ed9b6ff5d199f27ae49e66f5e24ef90468a9"
+        },
+        "49": {
+          "path": "synmachine/seed_49.csv",
+          "sha256": "43d1d4e499ac42202b26620d5437232a306881a03a6995da8f9d7a6b4e0f7fa9"
+        },
+        "50": {
+          "path": "synmachine/seed_50.csv",
+          "sha256": "f7a21bc030e7c51d14972f8197cc811062d225ab5e1bc7d63346dd6ac508cf74"
+        },
+        "51": {
+          "path": "synmachine/seed_51.csv",
+          "sha256": "af4205bbbdaa5f34df6c9cb4809592b3a0845f9ee42be07ed9e3f61d7c3ad318"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 50,
+      "n_rows": 557,
+      "n_rows_before_downsampling": 557,
+      "published_n_rows": 557,
+      "raw_path": "Data/RawData/synchronousMachine.csv",
+      "raw_rows": 557,
+      "raw_sha256": "4ea7cc1817cba0b5139082f880aa6ea8205ce5e900b2106282a06a623ccf2061",
+      "scaled_columns": [
+        "If"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "toxicity": {
+      "behavior_columns": [
+        "LC50"
+      ],
+      "benchmark_columns": [
+        "CIC0",
+        "SM1_Dz",
+        "GATS1i",
+        "NdsCH",
+        "NdssC",
+        "MLOGP",
+        "LC50"
+      ],
+      "benchmark_k": 450,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "CIC0",
+        "SM1_Dz",
+        "GATS1i",
+        "NdsCH",
+        "NdssC",
+        "MLOGP"
+      ],
+      "display_name": "Toxicity",
+      "files": {
+        "42": {
+          "path": "toxicity/seed_42.csv",
+          "sha256": "781fb06c66600f30634cf27040aaa374dd34dc941ce27144b09c3c2bdce35d02"
+        },
+        "43": {
+          "path": "toxicity/seed_43.csv",
+          "sha256": "520326bc62b7d629b89573141c1063d5594e0b15112978754dc94495bb5b6e8d"
+        },
+        "44": {
+          "path": "toxicity/seed_44.csv",
+          "sha256": "dcfc7c6ac3b4ec53af93bfaa6d6039ed2fa709c95f43ff7e613dc7aa40bfb2e2"
+        },
+        "45": {
+          "path": "toxicity/seed_45.csv",
+          "sha256": "a5c2ba6d08ad302cd0053ec95b0b41fc5525faa70ce13b51006d65b764015657"
+        },
+        "46": {
+          "path": "toxicity/seed_46.csv",
+          "sha256": "b631941f2fbfdd94dbef9db37779b4f49bb9dc538f7f5c8f36d0783fdc411c2f"
+        },
+        "47": {
+          "path": "toxicity/seed_47.csv",
+          "sha256": "2bf8b7acaf8cd1a0e434e711fb642aabc9b472e7a8b2a8c53dc638b3bda9a85b"
+        },
+        "48": {
+          "path": "toxicity/seed_48.csv",
+          "sha256": "44a49e424dd59c2c8a6ce566dc70f1e1abfefb534e7f5e24df9f3ba81495a349"
+        },
+        "49": {
+          "path": "toxicity/seed_49.csv",
+          "sha256": "00e9a57e92203e2291556a563999dfcc7f404faed3be27489af27c58cb1200b0"
+        },
+        "50": {
+          "path": "toxicity/seed_50.csv",
+          "sha256": "c90124174b73bd37183a1ef0c2cd057084e03af0dd11980fd002870d7ad5ebc5"
+        },
+        "51": {
+          "path": "toxicity/seed_51.csv",
+          "sha256": "b4fa7793842d902e3a0d4fcc182a0320f3c06ea8485dbe00d7683d942de617b1"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 50,
+      "n_rows": 908,
+      "n_rows_before_downsampling": 908,
+      "published_n_rows": 908,
+      "raw_path": "Data/RawData/toxicity.csv",
+      "raw_rows": 908,
+      "raw_sha256": "b253924e2dcea9260777652c198b8566181e288c708155604bea532f7b91f26b",
+      "scaled_columns": [
+        "LC50"
+      ],
+      "unused_by_conditional_models": []
+    },
+    "yacht": {
+      "behavior_columns": [
+        "resistance"
+      ],
+      "benchmark_columns": [
+        "Longitudinal_position",
+        "Prismatic_coefficient",
+        "Length_displacement_ratio",
+        "Beam_draught_ratio",
+        "Length_beam_ratio",
+        "Froude_number",
+        "resistance"
+      ],
+      "benchmark_k": 155,
+      "benchmark_runs": 10,
+      "categorical_columns": [],
+      "context_columns": [
+        "Longitudinal_position",
+        "Prismatic_coefficient",
+        "Length_displacement_ratio",
+        "Beam_draught_ratio",
+        "Length_beam_ratio",
+        "Froude_number"
+      ],
+      "display_name": "Yacht",
+      "files": {
+        "42": {
+          "path": "yacht/seed_42.csv",
+          "sha256": "c1ce65f5c07fe90662fec9ed82fe6432b215099c3e7c8f87711b136ce910abb4"
+        },
+        "43": {
+          "path": "yacht/seed_43.csv",
+          "sha256": "4fbc1fcb031a89a0ca5e3282f1ffb83d2abff93b3944ce8913363084b1acf927"
+        },
+        "44": {
+          "path": "yacht/seed_44.csv",
+          "sha256": "8f74d98fa4ce6664b67da0bb4d4aa29939992905f93523c56dd371a1dff6f88d"
+        },
+        "45": {
+          "path": "yacht/seed_45.csv",
+          "sha256": "8d865bdb31ca6ef97b64cba55f138ac492d8ea4b4dc5db01f22ae760a86577de"
+        },
+        "46": {
+          "path": "yacht/seed_46.csv",
+          "sha256": "8c1730f3a9cb6074b5b9c9a74a0ad9d056e8f57ceb3cba54c05574543caafd92"
+        },
+        "47": {
+          "path": "yacht/seed_47.csv",
+          "sha256": "b816e903dfe32190e950f08ba8efc2be069c58b7b1fd46bb4570c4d6d8b6ec96"
+        },
+        "48": {
+          "path": "yacht/seed_48.csv",
+          "sha256": "225525fd7ef1b2e810fc9e245ddccc68aa4d2502d174376d6d25509f0db967cf"
+        },
+        "49": {
+          "path": "yacht/seed_49.csv",
+          "sha256": "ab2a106b292f331db41f207d899b82ad0360e409701f1136e3374ab4c4550c8f"
+        },
+        "50": {
+          "path": "yacht/seed_50.csv",
+          "sha256": "a893e6426fac7c5a09ae391008646bfd5991319eace18f110e4336045cb44f82"
+        },
+        "51": {
+          "path": "yacht/seed_51.csv",
+          "sha256": "9f3515cff5227e901b8fa36968a458fd71cbba498d829a66869cc2e347e3946a"
+        }
+      },
+      "flowcad_behavior_columns_match": true,
+      "flowcad_context_columns_match": true,
+      "injection_seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "n_anomalies": 30,
+      "n_rows": 308,
+      "n_rows_before_downsampling": 308,
+      "published_n_rows": 308,
+      "raw_path": "Data/RawData/yachtHydrodynamics.csv",
+      "raw_rows": 308,
+      "raw_sha256": "f67c2b18cdd0ee6df30e8fb087e6733c8aff6f066dafa7a1e366c495588f4959",
+      "scaled_columns": [
+        "resistance"
+      ],
+      "unused_by_conditional_models": []
+    }
+  },
+  "expected_datasets": [
+    "abalone",
+    "airfoil",
+    "bodyfat",
+    "boston",
+    "concrete",
+    "elnino",
+    "energy",
+    "fish",
+    "forestfires",
+    "gasemission",
+    "heartfailure",
+    "hepatitis",
+    "indianliver",
+    "maintenance",
+    "parkinson",
+    "power",
+    "qsranking",
+    "synmachine",
+    "toxicity",
+    "yacht"
+  ],
+  "flowcad_config_sha256": "fa4f6c49eb69dcc4f9f4f53512519174ae614fcccbe6c0a555bbae89ec5e63ac",
+  "injection_script": "Code/Utilities/ContextualAnomalyInjectFinal.py",
+  "injection_script_sha256": "9c03b617428d295e963d3e63d135c55fb4feed956dbb331bcdb2a35e2a78d4c6",
+  "protocol": "historical benchmark configuration and generator; independent signed uniform shifts per injected row and behavioral feature",
+  "source_commit": "f3b887f3d4466607a9d7147e9715f6b0b27a5954",
+  "source_repository": "https://github.com/ZhongLIFR/QCAD"
+}

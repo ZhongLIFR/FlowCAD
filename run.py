@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run Flow-CAD on prepared tabular benchmarks."""
+"""Run Flow-CAD on the earlier prepared benchmark format."""
 
 import argparse
 from datetime import datetime, timezone
@@ -267,7 +267,7 @@ def main():
     parser.add_argument("--seeds", default="201", help="Comma-separated unsigned integer seeds")
     parser.add_argument("--epochs", type=positive_integer,
                         help="Use a fixed epoch budget instead of the default CSM selection")
-    parser.add_argument("--data-dir", type=Path, default=PROJECT_ROOT / "data" / "GenData")
+    parser.add_argument("--data-dir", type=Path, help="Directory containing inputs from the earlier release")
     parser.add_argument("--output-dir", type=Path,
                         help="Fresh output directory; default: a timestamped directory under outputs/")
     parser.add_argument("--device", choices=("cpu", "cuda", "auto"), default="cpu")
@@ -293,6 +293,8 @@ def main():
             for key, config in configs.items():
                 print(f"{key}\t{config.get('display_name', key)}\t{config['file']}")
             return
+        if args.data_dir is None:
+            parser.error("Pass --data-dir for the earlier prepared inputs. For the paper benchmark, follow the Quick start in README.md.")
         seeds = parse_seeds(args.seeds)
         keys = parse_datasets(args.datasets, configs)
         run(args, configs, seeds, keys)
