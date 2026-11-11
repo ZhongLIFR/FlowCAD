@@ -26,7 +26,8 @@ def read_frozen(path, cases):
         for row in csv.DictReader(stream):
             key = row["dataset"], int(row["injection_seed"])
             if (key in frozen or key not in cases or row["sha256"] != cases[key]["sha256"]
-                    or row["mode"] != "csm_05" or row["flowcad_commit"] != MODEL_COMMIT
+                    or row["mode"] != "fixed_1000" or int(row["selected_epoch"]) != 1000
+                    or row["flowcad_commit"] != MODEL_COMMIT
                     or int(row["training_seed"]) != 201 + key[1] - 42):
                 raise ValueError(f"Unexpected, duplicate, or mismatched frozen Flow-CAD case: {key}")
             frozen[key] = row
@@ -92,7 +93,7 @@ def validate_scores(path, key, frozen, labels, method, evaluate_scores):
         ):
             raise ValueError(f"Record row or anomaly count differs from the input: {path}")
         epoch = int(record["selected_epoch"].item())
-        if epoch <= 0 or (method == "flowcad" and record["flowcad_commit"].item() != frozen["flowcad_commit"]):
+        if epoch != 1000 or (method == "flowcad" and record["flowcad_commit"].item() != frozen["flowcad_commit"]):
             raise ValueError(f"Record checkpoint or Flow-CAD commit is invalid: {path}")
         scores = record["scores"]
         stored = {metric: float(record[metric].item()) for metric in METRICS}
@@ -238,15 +239,15 @@ def main():
     from flowcad.metrics import evaluate_scores
 
     replay_dir = args.manifest.parent.parent
-    frozen_flow = args.frozen_flow or replay_dir / "flowcad_csm05" / "summary.csv"
-    flow_records = args.flow_records or replay_dir / "qcad_in_range_flow" / "records"
+    frozen_flow = args.frozen_flow or replay_dir / "flowcad_fixed_1000" / "summary.csv"
+    flow_records = args.flow_records or replay_dir / "qcad_in_range_flow_fixed_1000" / "records"
     prefix = "qcad_in_range" if is_qcad else "conditional_mean"
     if is_qcad:
         comparator_records = args.qcad_records or replay_dir / "qcad_in_range" / "records"
-        output = args.output or replay_dir / "qcad_in_range"
+        output = args.output or replay_dir / "qcad_in_range_fixed_1000"
     else:
-        comparator_records = args.mean_records or replay_dir / "qcad_conditional_mean" / "records"
-        output = args.output or replay_dir / "qcad_conditional_mean"
+        comparator_records = args.mean_records or replay_dir / "qcad_conditional_mean_fixed_1000" / "records"
+        output = args.output or replay_dir / "qcad_conditional_mean_fixed_1000"
     manifest = read_manifest(args.manifest)
     datasets = manifest["datasets"]
     if sorted(datasets) != sorted(manifest["expected_datasets"]):

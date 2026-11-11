@@ -15,7 +15,7 @@ from replay import MANIFEST, ROOT, read_manifest, verify_model
 METRICS = ("pr_auc", "roc_auc", "p_at_n")
 
 
-def fit_and_select(context, behavior, seed, checkpoints, np, torch):
+def fit_and_select(context, behavior, seed, checkpoints, np, torch, *, fixed_epochs=None):
     checkpoints.set_seed(seed)
     loader = torch.utils.data.DataLoader(
         checkpoints._BatchedDataset(context, behavior),
@@ -29,11 +29,13 @@ def fit_and_select(context, behavior, seed, checkpoints, np, torch):
     scale = torch.as_tensor(np.maximum(np.median(np.abs(behavior - median), axis=0), 1e-6))
     zero_state = torch.zeros_like(b)
     zero_time = torch.zeros((len(b), 1), dtype=b.dtype)
-    k = min(len(b) - 2, max(2, math.floor(checkpoints.TAIL_FRACTION * len(b))))
+    epochs = checkpoints.CANDIDATE_EPOCHS if fixed_epochs is None else (fixed_epochs,)
+    if fixed_epochs is None:
+        k = min(len(b) - 2, max(2, math.floor(checkpoints.TAIL_FRACTION * len(b))))
     selected_epoch, best_csm, best_scores = None, None, None
     candidates = []
 
-    for epoch in range(1, checkpoints.CANDIDATE_EPOCHS[-1] + 1):
+    for epoch in range(1, epochs[-1] + 1):
         model.train()
         for batch_context, batch_behavior in loader:
             # Advance the same RNG stream as Flow-CAD so shuffle orders match.
@@ -45,12 +47,14 @@ def fit_and_select(context, behavior, seed, checkpoints, np, torch):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-        if epoch not in checkpoints.CANDIDATE_EPOCHS:
+        if epoch not in epochs:
             continue
         model.eval()
         with torch.no_grad():
             prediction = model(zero_state, c, zero_time)
             scores = ((prediction - b).abs() / scale).clamp(max=10.0).sum(dim=1).numpy().astype(np.float64)
+        if fixed_epochs is not None:
+            return epoch, None, scores, []
         csm = checkpoints._contrast_score_margin(scores, k)
         candidates.append(csm)
         if csm is not None and (best_csm is None or csm > best_csm):
@@ -60,7 +64,7 @@ def fit_and_select(context, behavior, seed, checkpoints, np, torch):
     return selected_epoch, best_csm, best_scores, candidates
 
 
-def evaluate(job):
+def evaluate(job, *, fixed_epochs=None):
     dataset, spec, seed, input_path, sha, training_seed, target = job
     sys.path.insert(0, str(ROOT))
     import numpy as np
@@ -75,20 +79,26 @@ def evaluate(job):
     if data.sha256 != sha or len(data.frame) != spec["n_rows"] or data.dropped_rows:
         raise ValueError(f"Input differs from manifest: {dataset}/{seed}")
     started = time.perf_counter()
-    epoch, csm, scores, candidates = fit_and_select(data.context, data.behavior, training_seed, checkpoints, np, torch)
+    epoch, csm, scores, candidates = fit_and_select(
+        data.context, data.behavior, training_seed, checkpoints, np, torch, fixed_epochs=fixed_epochs,
+    )
     labels = pd.read_csv(input_path, usecols=["ground_truth"]).loc[data.frame.index, "ground_truth"].to_numpy()
     metrics = evaluate_scores(labels, scores)
     if metrics["n"] != spec["n_anomalies"]:
         raise ValueError(f"Label count differs from manifest: {dataset}/{seed}")
     result = {
         "dataset": dataset, "injection_seed": seed, "sha256": sha, "training_seed": training_seed,
-        "selected_epoch": epoch, "csm": csm, "n_rows": len(scores), "n_anomalies": metrics["n"],
+        "selected_epoch": epoch, "n_rows": len(scores), "n_anomalies": metrics["n"],
         **{metric: metrics[metric] for metric in METRICS}, "fit_seconds": time.perf_counter() - started,
     }
+    saved = {**result, "scores": scores}
+    if fixed_epochs is None:
+        result["csm"] = csm
+        saved.update(csm=csm, candidate_epochs=checkpoints.CANDIDATE_EPOCHS,
+                     candidate_csm=np.asarray(candidates, dtype=np.float64))
     temporary = target.with_suffix(".tmp")
     with temporary.open("wb") as output:
-        np.savez(output, **result, scores=scores, candidate_epochs=checkpoints.CANDIDATE_EPOCHS,
-                 candidate_csm=np.asarray(candidates, dtype=np.float64))
+        np.savez(output, **saved)
     temporary.replace(target)
     return result
 
@@ -96,7 +106,7 @@ def evaluate(job):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
-    parser.add_argument("--flow-records", type=Path, help="Directory of CSM-selected Flow-CAD JSON records")
+    parser.add_argument("--flow-records", type=Path, help="Directory of fixed-epoch Flow-CAD JSON records")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--workers", type=int, default=2)
     parser.add_argument("--dataset", action="append", help="Restrict a smoke run to these datasets")
@@ -109,8 +119,8 @@ def main():
     revision = verify_model()
     datasets = read_manifest(args.manifest)["datasets"]
     replay_dir = args.manifest.parent.parent
-    flow_records = args.flow_records or replay_dir / "flowcad_csm05"
-    output = args.output or replay_dir / "qcad_conditional_mean"
+    flow_records = args.flow_records or replay_dir / "flowcad_fixed_1000"
+    output = args.output or replay_dir / "qcad_conditional_mean_fixed_1000"
     records = output / "records"
     records.mkdir(parents=True, exist_ok=True)
     settings = {
@@ -121,7 +131,7 @@ def main():
         "model": "Same context encoder and MLP widths as Flow-CAD; state/time inputs fixed at zero",
         "training": "Direct behavioral MSE; Adam 0.001, batch 128, seed and shuffles matched to Flow-CAD",
         "score": "L1 absolute residual from conditional mean, full-table MAD floor 1e-6, per-coordinate cap 10",
-        "selection": "Same label-free 5% CSM and candidate epochs as Flow-CAD, independently selected",
+        "epochs": 1000,
     }
     protocol = output / "protocol.json"
     if protocol.exists() and json.loads(protocol.read_text()) != settings:
@@ -136,7 +146,8 @@ def main():
             reference_name = f"{dataset}_seed_{seed}"
             reference = json.loads((flow_records / f"{reference_name}.json").read_text())
             if (reference["sha256"] != input_spec["sha256"] or reference["injection_seed"] != seed
-                    or reference["dataset"] != dataset or reference["mode"] != "csm_05"
+                    or reference["dataset"] != dataset or reference["mode"] != "fixed_1000"
+                    or reference["selected_epoch"] != 1000
                     or reference["flowcad_commit"] != revision or reference["training_seed"] != 201 + seed - 42):
                 raise ValueError(f"Flow-CAD reference differs from manifest: {reference_name}")
             target = records / f"{reference_name}.npz"
@@ -145,6 +156,7 @@ def main():
                     if (previous["sha256"].item() != input_spec["sha256"]
                             or previous["dataset"].item() != dataset or previous["injection_seed"].item() != seed
                             or previous["training_seed"].item() != reference["training_seed"]
+                            or previous["selected_epoch"].item() != 1000
                             or previous["scores"].shape != (spec["n_rows"],)
                             or not np.isfinite(previous["scores"]).all()):
                         raise ValueError(f"Invalid saved record: {target}")
@@ -157,7 +169,7 @@ def main():
     print(json.dumps({"expected": expected, "resuming_from": completed, "workers": args.workers}), flush=True)
     if jobs:
         with ProcessPoolExecutor(max_workers=args.workers) as pool:
-            for future in as_completed([pool.submit(evaluate, job) for job in jobs]):
+            for future in as_completed([pool.submit(evaluate, job, fixed_epochs=1000) for job in jobs]):
                 record = future.result()
                 completed += 1
                 print(json.dumps({"completed": completed, "expected": expected, **record}), flush=True)

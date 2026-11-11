@@ -12,7 +12,7 @@ import sys
 from time import perf_counter, process_time
 
 
-from replay import MANIFEST, REPLAY, ROOT, read_manifest, verify_model
+from replay import MANIFEST, ROOT, read_manifest, verify_model
 
 
 PORT = ROOT / "scripts" / "run_paired_qcad.py"
@@ -22,42 +22,33 @@ METRICS = ("pr_auc", "roc_auc", "p_at_n")
 def flowcad_timing(path, spec, reference, seed):
     import numpy as np
     import pandas as pd
-    from flowcad import checkpoints
     from flowcad.data import load_benchmark
+    from flowcad.fixed import ScoringDraws, fit_fixed
     from flowcad.metrics import evaluate_scores
-
-    original = checkpoints._SharedDraws
-    captured = []
-
-    class CaptureDraws(original):
-        def contributions(self, model):
-            captured.append(model)
-            return super().contributions(model)
 
     wall, cpu = perf_counter(), process_time()
     data = load_benchmark({**spec, "file": path.name}, path.parent, require_labels=False)
-    checkpoints._SharedDraws = CaptureDraws
-    try:
-        result = checkpoints.select_checkpoint(data.context, data.behavior, seed)
-    finally:
-        checkpoints._SharedDraws = original
+    model = fit_fixed(data.context, data.behavior, seed)
+    draws = ScoringDraws(data.context, data.behavior, seed)
+    scores = draws.scores(model)
+    draws.contributions(model)
     labels = pd.read_csv(path, usecols=["ground_truth"]).loc[data.frame.index, "ground_truth"]
-    metrics = evaluate_scores(labels.to_numpy(), result["scores"])
+    metrics = evaluate_scores(labels.to_numpy(), scores)
     total_cpu, total_wall = process_time() - cpu, perf_counter() - wall
-    if result["epoch"] != reference["selected_epoch"] or any(metrics[m] != reference[m] for m in METRICS):
+    if reference["selected_epoch"] != 1000 or any(metrics[m] != reference[m] for m in METRICS):
         raise ValueError("Timing run did not reproduce the frozen Flow-CAD result")
 
     wall, cpu = perf_counter(), process_time()
-    draws = original(data.context, data.behavior, seed)
-    scores = draws.scores(captured[0])
-    draws.contributions(captured[0])
+    draws = ScoringDraws(data.context, data.behavior, seed)
+    retimed_scores = draws.scores(model)
+    draws.contributions(model)
     scoring_cpu, scoring_wall = process_time() - cpu, perf_counter() - wall
-    if not np.array_equal(scores, result["scores"]):
-        raise ValueError("Retimed scoring did not reproduce the selected scores")
+    if not np.array_equal(retimed_scores, scores):
+        raise ValueError("Retimed scoring did not reproduce the original scores")
     return {
         "total_cpu_s": total_cpu, "total_wall_s": total_wall,
         "fitted_score_cpu_s": scoring_cpu, "fitted_score_wall_s": scoring_wall,
-        "selected_epoch": result["epoch"], **{m: metrics[m] for m in METRICS},
+        "selected_epoch": reference["selected_epoch"], **{m: metrics[m] for m in METRICS},
     }
 
 
@@ -73,11 +64,14 @@ def write_csv(path, rows):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
-    parser.add_argument("--out", type=Path, default=REPLAY / "paired_timing")
+    parser.add_argument("--out", type=Path)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--limit", type=int, default=8)
-    parser.add_argument("--qcad-results", type=Path, default=REPLAY / "paired_qcad")
+    parser.add_argument("--qcad-results", type=Path)
     args = parser.parse_args()
+    replay = args.manifest.parent.parent
+    args.out = args.out or replay / "paired_timing_fixed_1000"
+    args.qcad_results = args.qcad_results or replay / "paired_qcad"
 
     verify_model()
     sys.path.insert(0, str(ROOT))
@@ -99,7 +93,7 @@ def main():
         "pytorch": torch.__version__, "sklearn": port.sklearn.__version__,
         "manifest_sha256": hashlib.sha256(args.manifest.read_bytes()).hexdigest(),
         "port_sha256": hashlib.sha256(PORT.read_bytes()).hexdigest(),
-        "design": "Serial per table, alternate method order. Includes feature loading, fitting, selection, scoring, attribution and evaluation. The fitted Flow-CAD timer excludes labels and includes fresh draws, scores and contributions.",
+        "design": "Serial per table, alternating method order. Includes feature loading, fitting, scoring, attribution and evaluation. Flow-CAD uses 1000 epochs. The fitted Flow-CAD timer includes fresh draws, scores and contributions.",
     }, indent=2) + "\n")
 
     rows = []
@@ -108,7 +102,7 @@ def main():
             spec = manifest[dataset]
             file = spec["files"][str(args.seed)]
             path = args.manifest.parent / file["path"]
-            reference = json.loads((args.manifest.parent.parent / "flowcad_csm05" / f"{dataset}_seed_{args.seed}.json").read_text())
+            reference = json.loads((replay / "flowcad_fixed_1000" / f"{dataset}_seed_{args.seed}.json").read_text())
             qcad_reference = json.loads((args.qcad_results / f"paper_{dataset}_seed_{args.seed}.json").read_text())
             actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
             if len({actual_hash, file["sha256"], reference["sha256"], qcad_reference["sha256"]}) != 1:

@@ -1,4 +1,4 @@
-"""Replay the chosen CSM models and score the ablation grids on the same inputs."""
+"""Fit Flow-CAD for 1,000 epochs and vary scoring on the main benchmark inputs."""
 
 import argparse
 from collections import defaultdict
@@ -23,6 +23,7 @@ SETTINGS = {
     "kt": BUDGETS,
     "kz": BUDGETS,
 }
+DEFAULT_SETTINGS = {"normalization": "default", "tau": "10", "norm": "L1", "kt": "16", "kz": "16"}
 
 
 def absolute_residuals(model, context, behavior, noise, times, chunk_size, torch):
@@ -42,7 +43,7 @@ def absolute_residuals(model, context, behavior, noise, times, chunk_size, torch
     return output
 
 
-def score_sweeps(draws, seed, checkpoints, np, torch):
+def score_sweeps(model, draws, seed, checkpoints, np, torch):
     rows_per_block = checkpoints.CHUNK_SIZE // checkpoints.N_DRAWS
     base_z, base_t = checkpoints.N_Z, checkpoints.N_T
     extra_z, extra_t = BUDGETS[-1] - base_z, BUDGETS[-1] - base_t
@@ -55,7 +56,7 @@ def score_sweeps(draws, seed, checkpoints, np, torch):
 
     def score_residuals(context, behavior, noise, times):
         return absolute_residuals(
-            draws.model, context, behavior, noise, times, checkpoints.CHUNK_SIZE, torch,
+            model, context, behavior, noise, times, checkpoints.CHUNK_SIZE, torch,
         )
 
     def reduce_rows(values, n):
@@ -64,7 +65,7 @@ def score_sweeps(draws, seed, checkpoints, np, torch):
         np.add.at(totals, np.repeat(np.arange(n), checkpoints.N_DRAWS), values.numpy())
         return totals / checkpoints.N_DRAWS
 
-    draws.model.eval()
+    model.eval()
     with torch.no_grad():
         for start in range(0, draws.n_rows, rows_per_block):
             block = slice(start, start + rows_per_block)
@@ -126,47 +127,27 @@ def evaluate(job):
     import torch
     from flowcad import checkpoints
     from flowcad.data import load_benchmark
+    from flowcad.fixed import ScoringDraws, fit_fixed
     from flowcad.metrics import evaluate_scores
 
     torch.set_num_threads(1)
     data = load_benchmark({**spec, "file": data_path.name}, data_path.parent, require_labels=False)
     if data.sha256 != record["sha256"] or len(data.frame) != record["n_rows"] or data.dropped_rows:
-        raise ValueError("Input differs from the matched CSM replay")
+        raise ValueError("Input differs from the matched fixed-epoch replay")
     started = time.perf_counter()
-    original_draws, original_epochs = checkpoints._SharedDraws, checkpoints.CANDIDATE_EPOCHS
-    captured = []
-
-    class CapturedDraws(original_draws):
-        def contributions(self, model):
-            self.model = model
-            captured.append(self)
-
-    checkpoints._SharedDraws = CapturedDraws
-    checkpoints.CANDIDATE_EPOCHS = (record["selected_epoch"],)
-    try:
-        # Prior scoring uses its own generator and eval mode. Each epoch
-        # resets train mode, so the training trajectory is unchanged.
-        selected = checkpoints.select_checkpoint(data.context, data.behavior, record["training_seed"])
-    finally:
-        checkpoints._SharedDraws, checkpoints.CANDIDATE_EPOCHS = original_draws, original_epochs
+    model = fit_fixed(data.context, data.behavior, record["training_seed"])
     fit_seconds = time.perf_counter() - started
-    expected = [row for row in record["candidates"] if row["epoch"] == record["selected_epoch"]]
-    if selected["candidates"] != expected:
-        raise ValueError(f"CSM checkpoint differs from recorded replay: {selected['candidates']} != {expected}")
-    scores = score_sweeps(captured[0], record["training_seed"], checkpoints, np, torch)
-    if not np.array_equal(scores["normalization", "default"], selected["scores"]):
-        raise ValueError("Ablation default raw scores differ from the public selector")
+    draws = ScoringDraws(data.context, data.behavior, record["training_seed"])
+    scores = score_sweeps(model, draws, record["training_seed"], checkpoints, np, torch)
+    if not np.array_equal(scores["normalization", "default"], draws.scores(model)):
+        raise ValueError("Ablation default raw scores differ from the fixed-epoch scorer")
     labels = pd.read_csv(data_path, usecols=["ground_truth"]).loc[data.frame.index, "ground_truth"].to_numpy()
     results = []
     for (study, setting), values in scores.items():
         metrics = evaluate_scores(labels, values)
         results.append({"study": study, "setting": setting, **{name: metrics[name] for name in METRICS}})
-    for result in results:
-        if (result["study"], result["setting"]) in {
-            ("normalization", "default"), ("tau", "10"), ("norm", "L1"), ("kt", "16"), ("kz", "16"),
-        } and any(result[name] != record[name] for name in METRICS):
-            raise ValueError(f"Default metrics differ from the matched CSM replay: {result}")
-    if captured[0].n_features == 1 and any(
+    verify_defaults(results, record)
+    if draws.n_features == 1 and any(
         not np.array_equal(scores["norm", norm], scores["norm", "L1"]) for norm in ("L2", "max")
     ):
         raise ValueError("Scalar residual norms must coincide")
@@ -176,6 +157,14 @@ def evaluate(job):
         "fit_seconds": fit_seconds, "sweep_seconds": time.perf_counter() - started - fit_seconds,
         "results": results,
     }
+
+
+def verify_defaults(results, primary):
+    defaults = {row["study"]: row for row in results if DEFAULT_SETTINGS[row["study"]] == row["setting"]}
+    if defaults.keys() != DEFAULT_SETTINGS.keys() or any(
+        row[name] != primary[name] for row in defaults.values() for name in METRICS
+    ):
+        raise ValueError(f"Default metrics differ from the fixed-epoch replay for {primary['dataset']}")
 
 
 def write_csv(path, rows):
@@ -220,7 +209,7 @@ def main():
     data = args.manifest.parent
     datasets = read_manifest(args.manifest)["datasets"]
     replay = data.parent
-    output = replay / "ablation_sensitivity"
+    output = replay / "ablation_sensitivity_fixed_1000"
     output.mkdir(exist_ok=True)
     records, jobs = [], []
     for dataset in datasets if args.datasets == "all" else args.datasets.split(","):
@@ -228,15 +217,19 @@ def main():
         seeds = spec["injection_seeds"] if args.injection_seeds == "all" else map(int, args.injection_seeds.split(","))
         for seed in seeds:
             filename = f"{dataset}_seed_{seed}.json"
-            record = json.loads((replay / "flowcad_csm05" / filename).read_text())
+            record = json.loads((replay / "flowcad_fixed_1000" / filename).read_text())
             info = spec["files"][str(seed)]
-            if record["sha256"] != info["sha256"] or record["flowcad_commit"] != revision:
+            if (record["sha256"] != info["sha256"] or record["flowcad_commit"] != revision
+                    or record["selected_epoch"] != 1000 or record["training_seed"] != 201 + seed - 42):
                 raise ValueError(f"Primary run does not match code or input: {filename}")
             path = output / filename
             if path.is_file():
                 existing = json.loads(path.read_text())
-                if any(existing[key] != record[key] for key in ("sha256", "selected_epoch", "flowcad_commit")):
+                if any(existing[key] != record[key] for key in (
+                    "sha256", "injection_seed", "training_seed", "selected_epoch", "flowcad_commit",
+                )):
                     raise ValueError(f"Ablation does not match primary run: {filename}")
+                verify_defaults(existing["results"], record)
                 records.append(existing)
             else:
                 estimated_steps = math.ceil(spec["n_rows"] / 128) * record["selected_epoch"]
