@@ -15,7 +15,7 @@ import time
 import traceback
 
 
-from replay import MANIFEST, REPLAY, ROOT, read_manifest
+from replay import MAIN_MANIFEST as MANIFEST, MAIN_REPLAY as REPLAY, ROOT, read_manifest
 METRICS = ("pr_auc", "roc_auc", "p_at_n")
 METHODS = ("DTE-NP", "TCCM", "DTE-C")
 SOURCES = {
@@ -196,7 +196,7 @@ def main():
         "metrics_sha256": sha256((ROOT / "flowcad/metrics.py").read_bytes()),
         "upstream": source_provenance(paths), "settings": SETTINGS,
         "feature_preprocessing": "Raw C+B columns; no scaling; numeric values kept; text categories ordinal-encoded.",
-        "fit": "Unlabeled full table; no anomaly labels or label-guided tuning.",
+        "fit": "Unlabeled full table.",
         "score": "Same full table. DTE-NP includes the query among neighbors as in the source. Labels read after scoring.",
         "model_seed": "201 + injection_seed - 42",
         "metrics": "Trapezoidal PR AUC, ROC AUC, P@n with n equal to the number of anomalies.",

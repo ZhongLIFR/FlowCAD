@@ -1,6 +1,6 @@
 """Run PyOD 2.0.3 LUNAR on matched QCAD-paper replay tables.
 
-The historical Flow-CAD environment pins PyOD 2.0.3 and the related TCCM
+The benchmark environment pins PyOD 2.0.3 and the related TCCM
 benchmark instantiates LUNAR with defaults. Fit and score on the same unlabeled
 table using the package's decision_scores_ interface.
 
@@ -20,7 +20,7 @@ import sys
 import time
 
 
-from replay import MANIFEST, REPLAY, ROOT, read_manifest
+from replay import MAIN_MANIFEST as MANIFEST, MAIN_REPLAY as REPLAY, ROOT, read_manifest
 PYOD_VERSION = "2.0.3"
 RELATED_PROTOCOL = "https://github.com/ZhongLIFR/TCCM-NIPS/blob/363cfa61fd9e786bcb0b905241106dd4e7f52e6f/FullExperiments.py"
 METRICS = ("pr_auc", "roc_auc", "p_at_n")

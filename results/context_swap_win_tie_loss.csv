@@ -1,7 +1,0 @@
-comparator,metric,n_datasets,n_trials,wins,ties,losses
-qcad,pr_auc,12,95,4,0,8
-qcad,roc_auc,12,95,5,0,7
-qcad,p_at_n,12,95,5,0,7
-conditional_mean,pr_auc,12,95,7,0,5
-conditional_mean,roc_auc,12,95,8,0,4
-conditional_mean,p_at_n,12,95,9,0,3

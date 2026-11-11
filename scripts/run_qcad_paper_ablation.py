@@ -12,7 +12,7 @@ import sys
 import time
 
 
-from replay import MANIFEST, ROOT, read_manifest, verify_model
+from replay import MAIN_MANIFEST as MANIFEST, ROOT, read_manifest, verify_model
 METRICS = ("pr_auc", "roc_auc", "p_at_n")
 TAUS = (2, 5, 10, 20, 30, 40, 50, 80, 100)
 BUDGETS = (2, 4, 8, 16, 32, 64, 128)

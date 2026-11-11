@@ -32,7 +32,7 @@ class FlowCAD:
     pass ``seed`` to score_samples for a repeatable call on the same hardware.
     """
 
-    def __init__(self, n_epochs=50, batch_size=128, lr=1e-3, hidden_dim=64,
+    def __init__(self, n_epochs=1000, batch_size=128, lr=1e-3, hidden_dim=64,
                  context_emb_dim=32, num_layers=3, n_z_samples=16,
                  n_t_samples=16, tau=10.0, random_state=42, device="cpu",
                  verbose=False):

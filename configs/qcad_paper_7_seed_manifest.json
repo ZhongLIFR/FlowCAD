@@ -3,12 +3,6 @@
   "benchmark_script_sha256": "c6c39a0a9c7c9f38dd9f2d15636295a95690871f43a19d65326b6f56bfee9568",
   "datasets": {
     "abalone": {
-      "abalone_reference_check": {
-        "commit": "c8a93c86244078bec51e7b9b4460f135acda78e5",
-        "path": "Data/TempFiles/abaloneGene.csv",
-        "sha256": "8d86825f552dff6fa01b19444de134bfbe0e902408b7973ef1b54c0a21ed85fc",
-        "verification": "identical label vector and all values agree within 1e-12"
-      },
       "behavior_columns": [
         "Whole weight",
         "Shucked weight",
@@ -28,7 +22,7 @@
         "Rings"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 5,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "Sex"
       ],
@@ -40,10 +34,6 @@
       ],
       "display_name": "Abalone",
       "files": {
-        "42": {
-          "path": "abalone/seed_42.csv",
-          "sha256": "c5ea048375723aa74fb27881cdbd28c16d52f96d4e575656b456278e82330822"
-        },
         "43": {
           "path": "abalone/seed_43.csv",
           "sha256": "f3b4e46bafb6b2e3b2aad292218bd54189f17f63d65e59b1e283eb855585d40e"
@@ -59,23 +49,33 @@
         "46": {
           "path": "abalone/seed_46.csv",
           "sha256": "44aace48a487974e9f872e617e33123207c97c220f28157ef55b71e09e1473f3"
+        },
+        "47": {
+          "path": "abalone/seed_47.csv",
+          "sha256": "6140227e29bc532111d1e8a513438877237ab59857c67f9dd9c52c75bbf1726d"
+        },
+        "48": {
+          "path": "abalone/seed_48.csv",
+          "sha256": "a925452ae863bce6c0d7d2bfc22237a2d4d4013468c041db7b825f106ac99a53"
+        },
+        "49": {
+          "path": "abalone/seed_49.csv",
+          "sha256": "e00c58fd791d71231a030b5ca33c1f61a57959924a07af573267a7643c2adc31"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "n_anomalies": 100,
       "n_rows": 4177,
       "n_rows_before_downsampling": 4177,
-      "published_n_rows": 4177,
       "raw_path": "Data/RawData/abalone.csv",
-      "raw_rows": 4177,
       "raw_sha256": "bce2d65d5738bea913d752d04f980b56f3603e5f2c578ff15fd44947bd6f5c19",
       "scaled_columns": [
         "Whole weight",
@@ -99,7 +99,7 @@
         "SSPL"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "f",
@@ -110,10 +110,6 @@
       ],
       "display_name": "Airfoil",
       "files": {
-        "42": {
-          "path": "airfoil/seed_42.csv",
-          "sha256": "1a1f5bafddb530b08674d13f9f3dd4df8f8ce95096e88ec54e85cedd92a7378f"
-        },
         "43": {
           "path": "airfoil/seed_43.csv",
           "sha256": "7d4d999f233915d83cc30c46409b2fd078a3ccf305a52422e6c16fa629f6bd4b"
@@ -141,36 +137,21 @@
         "49": {
           "path": "airfoil/seed_49.csv",
           "sha256": "4824819442252f392c54c265041fa888f6e8570163363a0c6dffb568319b5452"
-        },
-        "50": {
-          "path": "airfoil/seed_50.csv",
-          "sha256": "96f98137d03ac47de6d07e352a2594941ba7a3930ef507c84337068c0c77a23c"
-        },
-        "51": {
-          "path": "airfoil/seed_51.csv",
-          "sha256": "3bdb54ea9aab74a66d740f4e9b541c7e87b3745b7bc3fefc7b2ebe4f7b6fd06e"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 70,
       "n_rows": 1503,
       "n_rows_before_downsampling": 1503,
-      "published_n_rows": 1503,
       "raw_path": "Data/RawData/airfoil.csv",
-      "raw_rows": 1503,
       "raw_sha256": "79bbe31e7b1b893dceb8f706e3ad26ae388ec0e4f8db4306f3c5061591b91abd",
       "scaled_columns": [
         "SSPL"
@@ -199,7 +180,7 @@
         "Forearm"
       ],
       "benchmark_k": 126,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "Age",
@@ -217,10 +198,6 @@
       ],
       "display_name": "BodyFat",
       "files": {
-        "42": {
-          "path": "bodyfat/seed_42.csv",
-          "sha256": "732f66f111af417b54042b4cd8d50dfcfee4925d356956b7937f13ad4a63dcfb"
-        },
         "43": {
           "path": "bodyfat/seed_43.csv",
           "sha256": "2317e210173290d1d72381cb1c6d85705f7c7382e494c57b14883dd7f6ba271b"
@@ -248,36 +225,21 @@
         "49": {
           "path": "bodyfat/seed_49.csv",
           "sha256": "eef14bcc1008d23fd4e1183e1e1e2ce85b8cadd299c474f902fd85a3f230a4db"
-        },
-        "50": {
-          "path": "bodyfat/seed_50.csv",
-          "sha256": "a94e3789b7733dc0e2f4c66b3adfd6e2861be50d671e9b4734bfe29f15b32853"
-        },
-        "51": {
-          "path": "bodyfat/seed_51.csv",
-          "sha256": "dae3ed83b9b5467401754ae1d6fc004c04760e23e02cad571efdf52059176711"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 20,
       "n_rows": 252,
       "n_rows_before_downsampling": 252,
-      "published_n_rows": 252,
       "raw_path": "Data/RawData/bodyfat.csv",
-      "raw_rows": 252,
       "raw_sha256": "4da0e256cb3ebd9c4e5591c32131d31a5e81eb5e7d353555c19bb4addded9a55",
       "scaled_columns": [
         "Density",
@@ -306,7 +268,7 @@
         "MEDV"
       ],
       "benchmark_k": 253,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "CRIM",
@@ -325,10 +287,6 @@
       ],
       "display_name": "Boston",
       "files": {
-        "42": {
-          "path": "boston/seed_42.csv",
-          "sha256": "f6582db93863af8bf9969bf74f7773a6802d21a2a6b02657299f07381bb3159b"
-        },
         "43": {
           "path": "boston/seed_43.csv",
           "sha256": "647ccbe6b2586ec0528759bb135a6b1eab014820c5ab3eb3ada1b51c4fdcf448"
@@ -356,36 +314,21 @@
         "49": {
           "path": "boston/seed_49.csv",
           "sha256": "738aeb669085e9f45535079d5cc01568144a657d01e896eeb68ae373ac0b0d30"
-        },
-        "50": {
-          "path": "boston/seed_50.csv",
-          "sha256": "627dd10c8b8d0ac5ea7314638fa82bc03aae4053973625884c8e0d517fa51189"
-        },
-        "51": {
-          "path": "boston/seed_51.csv",
-          "sha256": "d71d6fea3094fff90d04aa9ebb4d2843da21e68b6513aa763d3fd3ff9267fc03"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 40,
       "n_rows": 506,
       "n_rows_before_downsampling": 506,
-      "published_n_rows": 506,
       "raw_path": "Data/RawData/boston.csv",
-      "raw_rows": 506,
       "raw_sha256": "ebf8b4a9ceaf375f9591be7b862b3eafc6efc952251e77f09dd6c2df9e216ba0",
       "scaled_columns": [
         "MEDV"
@@ -408,7 +351,7 @@
         "Strength"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "C1",
@@ -422,10 +365,6 @@
       ],
       "display_name": "Concrete",
       "files": {
-        "42": {
-          "path": "concrete/seed_42.csv",
-          "sha256": "299dbec2b5e850f46724f31f086e8edb9445974dfd2f16d51a7423ac72316521"
-        },
         "43": {
           "path": "concrete/seed_43.csv",
           "sha256": "dc2615cc5c8bb95fc4b7cc45482b6f8a29f921df55e0a1dcbc60334596cfd5b2"
@@ -453,36 +392,21 @@
         "49": {
           "path": "concrete/seed_49.csv",
           "sha256": "21ecf7169b82a2f03466b0de1e5718fea9acadecf267913e92274e7dba9f4a75"
-        },
-        "50": {
-          "path": "concrete/seed_50.csv",
-          "sha256": "b2c1ea2fc60a040190fdf2c3f1968b9ee2a6e044decdbf969f3394f84d4c7324"
-        },
-        "51": {
-          "path": "concrete/seed_51.csv",
-          "sha256": "97e3ccd352355b8e55d93351aba8ec0c84fb7c809449711c9e2c706d64501ad3"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 50,
       "n_rows": 1030,
       "n_rows_before_downsampling": 1030,
-      "published_n_rows": 1030,
       "raw_path": "Data/RawData/Concrete.csv",
-      "raw_rows": 1030,
       "raw_sha256": "0cb0348d49c89d5ddc3ac2bb993051ca5ec2987869b844d6a05ccb2a7b85fa39",
       "scaled_columns": [
         "Strength"
@@ -511,7 +435,7 @@
         "Sea_Surface_Temp"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 5,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "Year",
         "Month",
@@ -527,10 +451,6 @@
       ],
       "display_name": "ElNino",
       "files": {
-        "42": {
-          "path": "elnino/seed_42.csv",
-          "sha256": "582f0f9306e6c000fa42d89f830f8091646b26b06b8e393fc6c89fbd9a3ce301"
-        },
         "43": {
           "path": "elnino/seed_43.csv",
           "sha256": "394259c066be955f4af8387fafcb818c622eb4ebbaef14e2d8599f864894ce65"
@@ -546,23 +466,33 @@
         "46": {
           "path": "elnino/seed_46.csv",
           "sha256": "a1ad4f93656e0ef9aeefbf9d537a69b84ea922cb46da67118237913a86a1d36d"
+        },
+        "47": {
+          "path": "elnino/seed_47.csv",
+          "sha256": "47762a31d4e972e01f957556193752e9c85aa9163a4e5a3259f5250729b4b4f7"
+        },
+        "48": {
+          "path": "elnino/seed_48.csv",
+          "sha256": "e020ebdbcc4f395c43241feee7ab320086b1ecedb256c987e8db90a93c2843ec"
+        },
+        "49": {
+          "path": "elnino/seed_49.csv",
+          "sha256": "67a1e1bd9a3fe2ce9af21141b5d767c943e448f00e085a14a10ab2c70c129e4d"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "n_anomalies": 200,
       "n_rows": 20000,
       "n_rows_before_downsampling": 93935,
-      "published_n_rows": 20000,
       "raw_path": "Data/RawData/elnino.csv",
-      "raw_rows": 93935,
       "raw_sha256": "8d6a1dba361565fb67a9586e46e3c2559ecb7590b6c17488681bdb599f8101e6",
       "scaled_columns": [
         "Zonal_Winds",
@@ -591,7 +521,7 @@
         "Y2"
       ],
       "benchmark_k": 384,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "X1",
@@ -605,10 +535,6 @@
       ],
       "display_name": "Energy",
       "files": {
-        "42": {
-          "path": "energy/seed_42.csv",
-          "sha256": "57491fa4d317ee108b000711ecfba5b0bcbf497439750297799a96912da7f069"
-        },
         "43": {
           "path": "energy/seed_43.csv",
           "sha256": "087c8f9c907a09f9b392bf060ce69f4d7390b9609f737c6e72c8670dc8871e89"
@@ -636,36 +562,21 @@
         "49": {
           "path": "energy/seed_49.csv",
           "sha256": "b8facc091cd0577cb4942e75aec8bec4a808a690fd43d4ba483f6d54e5f264f5"
-        },
-        "50": {
-          "path": "energy/seed_50.csv",
-          "sha256": "0e818001c2b24827597ff47ee93e478a30f7ae9f037ecc3e856f62b1df0d4283"
-        },
-        "51": {
-          "path": "energy/seed_51.csv",
-          "sha256": "31d1aaeb99d88ae810287f59422ca484ac69ba4a9d9844e6244cb7d87a18c976"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 50,
       "n_rows": 768,
       "n_rows_before_downsampling": 768,
-      "published_n_rows": 768,
       "raw_path": "Data/RawData/Energy.csv",
-      "raw_rows": 768,
       "raw_sha256": "b3ab61f6116d8c20820fc042884df005edc4922071c1c7849328a2e7ac613593",
       "scaled_columns": [
         "Y1",
@@ -687,7 +598,7 @@
         "Width"
       ],
       "benchmark_k": 80,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "Species"
       ],
@@ -701,10 +612,6 @@
       ],
       "display_name": "FishWeight",
       "files": {
-        "42": {
-          "path": "fish/seed_42.csv",
-          "sha256": "44dd6001d49a405420d1e3687323fec40127ada187cba8f006adec929078e009"
-        },
         "43": {
           "path": "fish/seed_43.csv",
           "sha256": "e58dbd8e26b46af9b7e985a5e0de729a4ff5a4c76a2ffe6cb8965a6a234b3d65"
@@ -732,38 +639,22 @@
         "49": {
           "path": "fish/seed_49.csv",
           "sha256": "5e4ff3c7a276bf97eedd3f062d3fe397a2fcd3198eaea71a5d8e0a6bea60be54"
-        },
-        "50": {
-          "path": "fish/seed_50.csv",
-          "sha256": "dd17bb9f62585dd2bc375e026d8c9c59e6a7108ad2e5cebfdc7a10a3daf2ca67"
-        },
-        "51": {
-          "path": "fish/seed_51.csv",
-          "sha256": "4ec221c089de3b4f1f64ba5cc67e72fd7d588b793818ca1fb833579f7bbfef78"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 15,
       "n_rows": 159,
       "n_rows_before_downsampling": 159,
-      "published_n_rows": 157,
       "raw_path": "Data/RawData/fish.csv",
-      "raw_rows": 159,
       "raw_sha256": "81c29d80fed910417a4233782f7fe859a2df9554d19cb686d0c121920ad2e5d3",
-      "sample_count_note": "The released historical raw CSV has 159 complete rows; no rows were removed to force the published count of 157.",
       "scaled_columns": [
         "Weight"
       ],
@@ -797,7 +688,7 @@
         "area"
       ],
       "benchmark_k": 258,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "X",
@@ -807,10 +698,6 @@
       ],
       "display_name": "ForestFires",
       "files": {
-        "42": {
-          "path": "forestfires/seed_42.csv",
-          "sha256": "a8eb4d3c6018f7c0d864f4d5b47daa0b34cac85ef2b1a53849025578bda034f2"
-        },
         "43": {
           "path": "forestfires/seed_43.csv",
           "sha256": "47a0d0d5e9f47c6d26008786ec342c81ede3a0c60aeeb879b2b29b814b117cfd"
@@ -838,36 +725,21 @@
         "49": {
           "path": "forestfires/seed_49.csv",
           "sha256": "2e382d82d69efe7f90b272f28f99901d305db8a3c6014dff8f89ac249e2c383d"
-        },
-        "50": {
-          "path": "forestfires/seed_50.csv",
-          "sha256": "f957d008b17040b69ee195b14ca3588726420d95c3681d6fca8b5e02ae7f2722"
-        },
-        "51": {
-          "path": "forestfires/seed_51.csv",
-          "sha256": "56645cb9c59f5cb297c4eea45e10f2f61606e88d76012d32d490a24cafc4a901"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 50,
       "n_rows": 517,
       "n_rows_before_downsampling": 517,
-      "published_n_rows": 517,
       "raw_path": "Data/RawData/forestFires.csv",
-      "raw_rows": 517,
       "raw_sha256": "04b7840c40f368037ac5f82c0d37eef2e96da58a51e2160902429b09bfd70ff0",
       "scaled_columns": [
         "FFMC",
@@ -902,7 +774,7 @@
         "NOX"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 5,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "AT",
@@ -916,10 +788,6 @@
       ],
       "display_name": "GasEmission",
       "files": {
-        "42": {
-          "path": "gasemission/seed_42.csv",
-          "sha256": "b9c6775b2a63731797e53c9fe377404a351bcd569fec3819f6e7e9a384963300"
-        },
         "43": {
           "path": "gasemission/seed_43.csv",
           "sha256": "85dcbb460375ce6e39c7aa38b812a94aa9f239618034855978e6f67136a07f93"
@@ -935,23 +803,33 @@
         "46": {
           "path": "gasemission/seed_46.csv",
           "sha256": "f7c3727f88dae623c4641b7897d8caaa7b497c485832697a86ac4642e4983a22"
+        },
+        "47": {
+          "path": "gasemission/seed_47.csv",
+          "sha256": "ff4556ff8fd15ca70d3cba04fede3e9ed5928d07b0373298f3fe6f26a76ffccf"
+        },
+        "48": {
+          "path": "gasemission/seed_48.csv",
+          "sha256": "873bbc2c62cdac81b2c30c3f277ba0c73a4f8ea47020e60f0cd57f9a5992b56d"
+        },
+        "49": {
+          "path": "gasemission/seed_49.csv",
+          "sha256": "a9c17885ec4630bfe707565409fe10603890da13226113f43a19cad216048e8e"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "n_anomalies": 100,
       "n_rows": 7384,
       "n_rows_before_downsampling": 7384,
-      "published_n_rows": 7384,
       "raw_path": "Data/RawData/gasEmission.csv",
-      "raw_rows": 7384,
       "raw_sha256": "c77d44f014b84ba1be6c98af7b43201b90c5bc2a0bb5d5c7cba32b91053b8b26",
       "scaled_columns": [
         "TEY",
@@ -985,7 +863,7 @@
         "DEATH_EVENT"
       ],
       "benchmark_k": 150,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "sex",
         "smoking",
@@ -1003,10 +881,6 @@
       ],
       "display_name": "HeartFailure",
       "files": {
-        "42": {
-          "path": "heartfailure/seed_42.csv",
-          "sha256": "67b0475fcc518d633fd7f5c75b36d0affdc632870fe0a8534f7428e6b618c51a"
-        },
         "43": {
           "path": "heartfailure/seed_43.csv",
           "sha256": "156a8fdd2e18aa2a7eb4cde54d2dba7f6d5455ca3fb3611cef15b8c57ea995ff"
@@ -1034,36 +908,21 @@
         "49": {
           "path": "heartfailure/seed_49.csv",
           "sha256": "f0f748363fc498b7c3e63d759a3b6c92c6db0bb699574b72f0ef6f877d98d065"
-        },
-        "50": {
-          "path": "heartfailure/seed_50.csv",
-          "sha256": "143f6cf3f9c66071591755df0d9469c4163ab010b06f0b5bcf58f896187674cc"
-        },
-        "51": {
-          "path": "heartfailure/seed_51.csv",
-          "sha256": "fd3da1b1e72b1bdb564444b6449fb635063f06a63b2958c232a087e2ee63b0b9"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 30,
       "n_rows": 299,
       "n_rows_before_downsampling": 299,
-      "published_n_rows": 299,
       "raw_path": "Data/RawData/heartFailure.csv",
-      "raw_rows": 299,
       "raw_sha256": "df589d6abe3cc5343ec3fa33e513813f94c952ed5d0e7f6bfdba3a43b0eb34fe",
       "scaled_columns": [
         "creatinine_phosphokinase",
@@ -1106,7 +965,7 @@
         "PROT"
       ],
       "benchmark_k": 308,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "Sex",
         "Category"
@@ -1118,10 +977,6 @@
       ],
       "display_name": "Hepatitis",
       "files": {
-        "42": {
-          "path": "hepatitis/seed_42.csv",
-          "sha256": "73c9431b76c7e28d4f4c1d7c3f0fe3959f8cf78072428a087df34e58c87adcf9"
-        },
         "43": {
           "path": "hepatitis/seed_43.csv",
           "sha256": "b1ed01edda5cc7f9b5f8a0c7eccb903f450c995fe42be926ac26654c822b283b"
@@ -1149,38 +1004,22 @@
         "49": {
           "path": "hepatitis/seed_49.csv",
           "sha256": "3e0629a8c17a0a5f4a8a98c11d83153f35a23743cc92535547cb7c353348205d"
-        },
-        "50": {
-          "path": "hepatitis/seed_50.csv",
-          "sha256": "0622262647ad842e617746fd34ac7930c18d20a7483c64ec23d45355d138b215"
-        },
-        "51": {
-          "path": "hepatitis/seed_51.csv",
-          "sha256": "7f037e60c4faf96e3a75ce5a0ee32853b500bb6c48143301b23a0508fc646ced"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": false,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 30,
       "n_rows": 589,
       "n_rows_before_downsampling": 589,
-      "published_n_rows": 615,
       "raw_path": "Data/RawData/hepatitis.csv",
-      "raw_rows": 589,
       "raw_sha256": "3251e568438f557d0a38fe0355b2be024cde1bf0d6e3525ceb50ae14a4c48d13",
-      "sample_count_note": "The released source and missing-value processing yield 589 rows; Appendix B records removing 26 of 615.",
       "scaled_columns": [
         "ALB",
         "ALP",
@@ -1220,7 +1059,7 @@
         "Albumin_and_Globulin_Ratio"
       ],
       "benchmark_k": 290,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "Gender",
         "Selector"
@@ -1232,10 +1071,6 @@
       ],
       "display_name": "IndianLiver",
       "files": {
-        "42": {
-          "path": "indianliver/seed_42.csv",
-          "sha256": "d512771bcc428294aa678c63568579a8fe7521966a80a4551c092d036bf6d365"
-        },
         "43": {
           "path": "indianliver/seed_43.csv",
           "sha256": "369e9ad1fc06f250566e87784f9ab425a25c5439d71539a02f4d1073ed072e8b"
@@ -1263,36 +1098,21 @@
         "49": {
           "path": "indianliver/seed_49.csv",
           "sha256": "e2cbfaaed7df89b8b9eba06799be37622f1184217ac8878604652e5e7cd689ea"
-        },
-        "50": {
-          "path": "indianliver/seed_50.csv",
-          "sha256": "316f752324fc42c1f17263149ac953c6cd0ec685664781eaa8ce4d3ff83a9ac6"
-        },
-        "51": {
-          "path": "indianliver/seed_51.csv",
-          "sha256": "118911fb2e788e04dc81e531f12de4fab916c45468c0dcda9b856fa41bdbe5d4"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 30,
       "n_rows": 579,
       "n_rows_before_downsampling": 579,
-      "published_n_rows": 579,
       "raw_path": "Data/RawData/indianLiverPatient.csv",
-      "raw_rows": 579,
       "raw_sha256": "334a9f38c9b0c76155ffc2eb7c40929f800c4cd25efb8ac53794dfe004c8cb55",
       "scaled_columns": [
         "Total_Bilirubin",
@@ -1333,7 +1153,7 @@
         "TurbineDecay"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 5,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "LeverPosition",
@@ -1354,10 +1174,6 @@
       ],
       "display_name": "Maintenance",
       "files": {
-        "42": {
-          "path": "maintenance/seed_42.csv",
-          "sha256": "6d2066af995d2387141ca8239a4411a5686dbd674ca6583ec2853d25ec50f50b"
-        },
         "43": {
           "path": "maintenance/seed_43.csv",
           "sha256": "6286dba572761d4e13eecc5bdcf66e8b78ca28d8f0bdb30582679f8004b50e90"
@@ -1373,23 +1189,33 @@
         "46": {
           "path": "maintenance/seed_46.csv",
           "sha256": "a3f97733160f5db62a218b89bb99acd23c472d921ea2e5f0228947ec2de48b87"
+        },
+        "47": {
+          "path": "maintenance/seed_47.csv",
+          "sha256": "3774390482891c45aca4cb672bfaa6ebf2ee290cd313568f827b701ff997738a"
+        },
+        "48": {
+          "path": "maintenance/seed_48.csv",
+          "sha256": "9c82d8d9b80a735785ad306971a9f5eb3ca6c9c4bca3b7490a08192a6f53867e"
+        },
+        "49": {
+          "path": "maintenance/seed_49.csv",
+          "sha256": "ff5099ab9dc0da0be2d83fa59231d6ed0332650476a88ccf50d8f6c8c6f00e39"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "n_anomalies": 100,
       "n_rows": 11934,
       "n_rows_before_downsampling": 11934,
-      "published_n_rows": 11934,
       "raw_path": "Data/RawData/Maintenance.csv",
-      "raw_rows": 11934,
       "raw_sha256": "5f8a8ed177db175c4cc6b9ca1f3412bc355cec71ddcadc7595ca8b4299e04ede",
       "scaled_columns": [
         "ShipSpeed",
@@ -1428,7 +1254,7 @@
         "PPE"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 5,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "sex"
       ],
@@ -1456,10 +1282,6 @@
       ],
       "display_name": "Parkinson",
       "files": {
-        "42": {
-          "path": "parkinson/seed_42.csv",
-          "sha256": "8aa0305874a6e90a11b4a62a1fd2ed2bedece750fc7c8ffcff318dfcff68cfe2"
-        },
         "43": {
           "path": "parkinson/seed_43.csv",
           "sha256": "62cd42deb46a416ab32fe102b9e6c82b2671e4d6b961662ff633dc9bfea35a0b"
@@ -1475,23 +1297,33 @@
         "46": {
           "path": "parkinson/seed_46.csv",
           "sha256": "d4afe3841ff54dd0a4b5ce0a0015c4560ad4626cef7c15451c23c1c087699bf1"
+        },
+        "47": {
+          "path": "parkinson/seed_47.csv",
+          "sha256": "b55c470d8e095eb76a27fe8d97ff8c575564515a70621318a2144a83995828f6"
+        },
+        "48": {
+          "path": "parkinson/seed_48.csv",
+          "sha256": "98f2d81a21fcf43930fa21f3b79038bdb7e71a4b39de0e87d0aa4634fc0af701"
+        },
+        "49": {
+          "path": "parkinson/seed_49.csv",
+          "sha256": "3e92ef0c2add5bd8849d4c4c7480f5ad63d2dabd072637e7edb2b82be00bf4e0"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "n_anomalies": 100,
       "n_rows": 5875,
       "n_rows_before_downsampling": 5875,
-      "published_n_rows": 5875,
       "raw_path": "Data/RawData/parkinson.csv",
-      "raw_rows": 5875,
       "raw_sha256": "348a67444f6a0c5b4e2862e2ca33b5d1e44ab6ff01d7fc72899747b1613738e1",
       "scaled_columns": [
         "motor_UPDRS",
@@ -1511,7 +1343,7 @@
         "PE"
       ],
       "benchmark_k": 500,
-      "benchmark_runs": 5,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "AT",
@@ -1521,10 +1353,6 @@
       ],
       "display_name": "PowerPlant",
       "files": {
-        "42": {
-          "path": "power/seed_42.csv",
-          "sha256": "51beb08d1f9f2bd5b686f9148fdfa89e05ac4e7a8f9c17a4f91ad95289ea1479"
-        },
         "43": {
           "path": "power/seed_43.csv",
           "sha256": "e939e93aec07f66501490eee97b19f71260537f8870e9d34d6192be69481eea7"
@@ -1540,23 +1368,33 @@
         "46": {
           "path": "power/seed_46.csv",
           "sha256": "907826788c6de169dc701dfccf405d0eb802d96731d4ec7d9ab6069e49c74d85"
+        },
+        "47": {
+          "path": "power/seed_47.csv",
+          "sha256": "6e546371d53cc84b63cdc9f8d95db6ac5502a116d75ff57842daedeb58a118af"
+        },
+        "48": {
+          "path": "power/seed_48.csv",
+          "sha256": "68a4e9307bd6661b0f48e1f1f08b93f356178713a08d6e3b1ddfbd1f82237642"
+        },
+        "49": {
+          "path": "power/seed_49.csv",
+          "sha256": "1be28260755b96fc72e11dbd53a45688f54842896e963e6e3181dabbaa469493"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "n_anomalies": 100,
       "n_rows": 9568,
       "n_rows_before_downsampling": 9568,
-      "published_n_rows": 9568,
       "raw_path": "Data/RawData/power.csv",
-      "raw_rows": 9568,
       "raw_sha256": "04b48d973f7d9e2c5a0ed1e2b35e604d9c32d6b203a88fd44d0d3bcfa0f49002",
       "scaled_columns": [
         "PE"
@@ -1593,7 +1431,7 @@
         "International Students"
       ],
       "benchmark_k": 237,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [
         "Country"
       ],
@@ -1608,10 +1446,6 @@
       ],
       "display_name": "QSRanking",
       "files": {
-        "42": {
-          "path": "qsranking/seed_42.csv",
-          "sha256": "fb46a86d357f03de442e805ce97c26bc06c426610067ea229ce9319d173026cd"
-        },
         "43": {
           "path": "qsranking/seed_43.csv",
           "sha256": "aae0bc6f754a6fe63d94e9439f564dec138534e3ddb0dac79f6e25d66f61f7e0"
@@ -1639,36 +1473,21 @@
         "49": {
           "path": "qsranking/seed_49.csv",
           "sha256": "dfe8d2a519624c604fd885a0ef8229bc55bdde3c43875e3d68d27487e42a37a6"
-        },
-        "50": {
-          "path": "qsranking/seed_50.csv",
-          "sha256": "c3242efbb20ee6a2fce87629d06cb107a02c5bdbf44c90586254938931522039"
-        },
-        "51": {
-          "path": "qsranking/seed_51.csv",
-          "sha256": "a47ccd404b2d7ea80dbfb5fb8e00498ea71bc8c5e36cc717f9c5723ef83ada59"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 40,
       "n_rows": 475,
       "n_rows_before_downsampling": 475,
-      "published_n_rows": 475,
       "raw_path": "Data/RawData/QSRanking.csv",
-      "raw_rows": 475,
       "raw_sha256": "29e445234f8a2d0cec5caca6f2e8a090279f646db4f2f1855be99fa9e2d7a990",
       "scaled_columns": [
         "Academic Reputation",
@@ -1698,7 +1517,7 @@
         "If"
       ],
       "benchmark_k": 275,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "Iy",
@@ -1708,10 +1527,6 @@
       ],
       "display_name": "SynMachine",
       "files": {
-        "42": {
-          "path": "synmachine/seed_42.csv",
-          "sha256": "ffd52bdd82a90c3aaed4f9ee77b74e42a5f9808ddbeffc81ebc45fb92980c886"
-        },
         "43": {
           "path": "synmachine/seed_43.csv",
           "sha256": "48834e9fd1314d4142dcc259a0ae98c2da27631bd18f0c3b1b7ce22ad9e73758"
@@ -1739,36 +1554,21 @@
         "49": {
           "path": "synmachine/seed_49.csv",
           "sha256": "43d1d4e499ac42202b26620d5437232a306881a03a6995da8f9d7a6b4e0f7fa9"
-        },
-        "50": {
-          "path": "synmachine/seed_50.csv",
-          "sha256": "f7a21bc030e7c51d14972f8197cc811062d225ab5e1bc7d63346dd6ac508cf74"
-        },
-        "51": {
-          "path": "synmachine/seed_51.csv",
-          "sha256": "af4205bbbdaa5f34df6c9cb4809592b3a0845f9ee42be07ed9e3f61d7c3ad318"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 50,
       "n_rows": 557,
       "n_rows_before_downsampling": 557,
-      "published_n_rows": 557,
       "raw_path": "Data/RawData/synchronousMachine.csv",
-      "raw_rows": 557,
       "raw_sha256": "4ea7cc1817cba0b5139082f880aa6ea8205ce5e900b2106282a06a623ccf2061",
       "scaled_columns": [
         "If"
@@ -1789,7 +1589,7 @@
         "LC50"
       ],
       "benchmark_k": 450,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "CIC0",
@@ -1801,10 +1601,6 @@
       ],
       "display_name": "Toxicity",
       "files": {
-        "42": {
-          "path": "toxicity/seed_42.csv",
-          "sha256": "781fb06c66600f30634cf27040aaa374dd34dc941ce27144b09c3c2bdce35d02"
-        },
         "43": {
           "path": "toxicity/seed_43.csv",
           "sha256": "520326bc62b7d629b89573141c1063d5594e0b15112978754dc94495bb5b6e8d"
@@ -1832,36 +1628,21 @@
         "49": {
           "path": "toxicity/seed_49.csv",
           "sha256": "00e9a57e92203e2291556a563999dfcc7f404faed3be27489af27c58cb1200b0"
-        },
-        "50": {
-          "path": "toxicity/seed_50.csv",
-          "sha256": "c90124174b73bd37183a1ef0c2cd057084e03af0dd11980fd002870d7ad5ebc5"
-        },
-        "51": {
-          "path": "toxicity/seed_51.csv",
-          "sha256": "b4fa7793842d902e3a0d4fcc182a0320f3c06ea8485dbe00d7683d942de617b1"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 50,
       "n_rows": 908,
       "n_rows_before_downsampling": 908,
-      "published_n_rows": 908,
       "raw_path": "Data/RawData/toxicity.csv",
-      "raw_rows": 908,
       "raw_sha256": "b253924e2dcea9260777652c198b8566181e288c708155604bea532f7b91f26b",
       "scaled_columns": [
         "LC50"
@@ -1882,7 +1663,7 @@
         "resistance"
       ],
       "benchmark_k": 155,
-      "benchmark_runs": 10,
+      "benchmark_runs": 7,
       "categorical_columns": [],
       "context_columns": [
         "Longitudinal_position",
@@ -1894,10 +1675,6 @@
       ],
       "display_name": "Yacht",
       "files": {
-        "42": {
-          "path": "yacht/seed_42.csv",
-          "sha256": "c1ce65f5c07fe90662fec9ed82fe6432b215099c3e7c8f87711b136ce910abb4"
-        },
         "43": {
           "path": "yacht/seed_43.csv",
           "sha256": "4fbc1fcb031a89a0ca5e3282f1ffb83d2abff93b3944ce8913363084b1acf927"
@@ -1925,36 +1702,21 @@
         "49": {
           "path": "yacht/seed_49.csv",
           "sha256": "ab2a106b292f331db41f207d899b82ad0360e409701f1136e3374ab4c4550c8f"
-        },
-        "50": {
-          "path": "yacht/seed_50.csv",
-          "sha256": "a893e6426fac7c5a09ae391008646bfd5991319eace18f110e4336045cb44f82"
-        },
-        "51": {
-          "path": "yacht/seed_51.csv",
-          "sha256": "9f3515cff5227e901b8fa36968a458fd71cbba498d829a66869cc2e347e3946a"
         }
       },
-      "flowcad_behavior_columns_match": true,
-      "flowcad_context_columns_match": true,
       "injection_seeds": [
-        42,
         43,
         44,
         45,
         46,
         47,
         48,
-        49,
-        50,
-        51
+        49
       ],
       "n_anomalies": 30,
       "n_rows": 308,
       "n_rows_before_downsampling": 308,
-      "published_n_rows": 308,
       "raw_path": "Data/RawData/yachtHydrodynamics.csv",
-      "raw_rows": 308,
       "raw_sha256": "f67c2b18cdd0ee6df30e8fb087e6733c8aff6f066dafa7a1e366c495588f4959",
       "scaled_columns": [
         "resistance"
@@ -1984,10 +1746,10 @@
     "toxicity",
     "yacht"
   ],
-  "flowcad_config_sha256": "fa4f6c49eb69dcc4f9f4f53512519174ae614fcccbe6c0a555bbae89ec5e63ac",
+  "flowcad_config_sha256": "0b02dc344f835a8870acc764241f46b1552664cfd651b3477d94046b88731ba9",
   "injection_script": "Code/Utilities/ContextualAnomalyInjectFinal.py",
   "injection_script_sha256": "9c03b617428d295e963d3e63d135c55fb4feed956dbb331bcdb2a35e2a78d4c6",
-  "protocol": "historical benchmark configuration and generator; independent signed uniform shifts per injected row and behavioral feature",
+  "protocol": "Fixed benchmark configuration and generator; independent signed uniform shifts per injected row and behavioral feature. All datasets use injection seeds 43 through 49.",
   "source_commit": "f3b887f3d4466607a9d7147e9715f6b0b27a5954",
   "source_repository": "https://github.com/ZhongLIFR/QCAD"
 }

@@ -1,16 +1,13 @@
-"""Full-table, label-free checkpoint selection for the paper benchmark."""
+"""Shared training and scoring utilities for the fixed-budget benchmark."""
 
 import math
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
 
-from .reference import ConditionalVectorField, ContextBehaviorDataset, set_seed
+from .reference import ContextBehaviorDataset
 
 
-CANDIDATE_EPOCHS = (50, 100, 200, 500, 1000, 2000, 5000, 10000)
-TAIL_FRACTION = 0.05
 N_Z = N_T = 16
 N_DRAWS = N_Z * N_T
 CHUNK_SIZE = 4096
@@ -82,51 +79,3 @@ def _train_epoch(model, loader, optimizer):
         raise ValueError("Non-finite Flow Matching training loss")
 
 
-def _contrast_score_margin(scores, k):
-    if not np.isfinite(scores).all():
-        raise ValueError("CSM requires finite anomaly scores")
-    split = len(scores) - k
-    partition = np.partition(scores, split)
-    rest, tail = partition[:split], partition[split:]
-    sd = math.sqrt(float(tail.var(ddof=1) + rest.var(ddof=1)))
-    if not math.isfinite(sd) or sd == 0:
-        return None
-    margin = float((tail.mean() - rest.mean()) / sd)
-    return margin if math.isfinite(margin) else None
-
-
-def select_checkpoint(context, behavior, seed):
-    """Train on CPU and maximize 5% CSM over the paper's checkpoint grid.
-
-    Set PyTorch to one CPU thread for the paper benchmark. Inputs are aligned
-    feature matrices, with no labels. The same scoring draws are used across
-    all candidates, and ties favor the earlier checkpoint. The winning raw
-    scores and feature contributions use those same draws.
-    """
-    if len(behavior) < 4:
-        raise ValueError("CSM requires at least four rows")
-    k = min(len(behavior) - 2, max(2, math.floor(TAIL_FRACTION * len(behavior))))
-    set_seed(seed)
-    loader = DataLoader(_BatchedDataset(context, behavior), batch_size=128, shuffle=True,
-                        drop_last=False, collate_fn=lambda batch: batch)
-    model = ConditionalVectorField(context.shape[1], behavior.shape[1])
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    draws = _SharedDraws(context, behavior, seed)
-
-    candidates = []
-    best = None
-    for epoch in range(1, CANDIDATE_EPOCHS[-1] + 1):
-        _train_epoch(model, loader, optimizer)
-        if epoch not in CANDIDATE_EPOCHS:
-            continue
-        scores = draws.scores(model)
-        csm = _contrast_score_margin(scores, k)
-        candidates.append({"epoch": epoch, "csm": csm})
-        if csm is not None and (best is None or csm > best["csm"]):
-            best = {"epoch": epoch, "csm": csm, "scores": scores}
-            best_state = {name: param.clone() for name, param in model.state_dict().items()}
-    if best is None:
-        raise ValueError("All candidate checkpoints have undefined CSM")
-
-    model.load_state_dict(best_state)
-    return {**best, "k": k, "contributions": draws.contributions(model), "candidates": candidates}

@@ -1,4 +1,4 @@
-"""Replay the historical point and contextual detectors on matched tables."""
+"""Run the point and contextual baselines on the matched benchmark tables."""
 
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -10,13 +10,13 @@ from pathlib import Path
 import sys
 from time import perf_counter
 
-from replay import MANIFEST, REPLAY, ROOT, read_manifest
+from replay import MAIN_MANIFEST as MANIFEST, MAIN_REPLAY as REPLAY, ROOT, read_manifest
 
 
 POINT = ("IForest", "LOF", "k-NN", "SOD", "HBOS")
 CONTEXT = ("ROCOD", "LoPAD")
 METHODS = POINT + CONTEXT
-CAD_METHODS = ("CAD", "CAD-Full")
+CAD_METHODS = ("CAD",)
 
 
 def run_one(job):
@@ -54,17 +54,11 @@ def run_one(job):
                 scores = score_context_baseline(method, features, spec, training_seed, qcad_repo)
                 scored.append((method, scores, perf_counter() - started))
     if "CAD" in methods:
-        from qcad_cad import joint_columns, score_cad
-
-        started = perf_counter()
-        scored.append(("CAD", score_cad(features, spec), perf_counter() - started))
-        feature_counts["CAD"] = len(joint_columns(spec))
-    if "CAD-Full" in methods:
         from song_cad import score_cad_full
 
         started = perf_counter()
-        scored.append(("CAD-Full", score_cad_full(features, spec), perf_counter() - started))
-        feature_counts["CAD-Full"] = len(spec["context_columns"]) + len(spec["behavior_columns"])
+        scored.append(("CAD", score_cad_full(features, spec), perf_counter() - started))
+        feature_counts["CAD"] = len(spec["context_columns"]) + len(spec["behavior_columns"])
     if sorted(method for method, _, _ in scored) != sorted(methods):
         raise ValueError(f"Missing or unexpected detector output: {key}/{seed}")
     labels = pd.read_csv(source, usecols=["ground_truth"])["ground_truth"].to_numpy()
@@ -87,7 +81,7 @@ def run_one(job):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
-    parser.add_argument("--output", type=Path, default=REPLAY / "historical_baselines")
+    parser.add_argument("--output", type=Path, default=REPLAY / "classical_baselines")
     parser.add_argument("--qcad-repo", type=Path, help="Pinned QCAD checkout supplying LoPAD blankets")
     parser.add_argument("--methods", nargs="+", choices=METHODS + CAD_METHODS, default=METHODS)
     parser.add_argument("--datasets", nargs="+")

@@ -1,0 +1,5 @@
+family,method,seeds,mean_accuracy,min_accuracy,max_accuracy,seeds_above_75pct,joint_minus_method,paired_ci_low,paired_ci_high
+sign_parity,joint_flow,10,1.0,1.0,1.0,10,0.0,0.0,0.0
+sign_parity,conditional_mean_mlp,10,0.5,0.25,0.75,0,0.5,0.425,0.575
+sign_parity,coordinatewise_flow,10,0.49899999999999994,0.4925,0.50625,0,0.501,0.4985000000000001,0.5035
+sign_parity,zero_context_flow,10,0.5,0.5,0.5,0,0.5,0.5,0.5

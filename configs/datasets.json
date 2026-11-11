@@ -18,8 +18,7 @@
       ],
       "categorical_columns": [
         "Sex"
-      ],
-      "reference_epochs": 2000
+      ]
     },
     "airfoil": {
       "display_name": "Airfoil",
@@ -34,8 +33,7 @@
       "behavior_columns": [
         "SSPL"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 10000
+      "categorical_columns": []
     },
     "bodyfat": {
       "display_name": "BodyFat",
@@ -58,8 +56,7 @@
         "Density",
         "BodyFat"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 500
+      "categorical_columns": []
     },
     "boston": {
       "display_name": "Boston",
@@ -82,8 +79,7 @@
       "behavior_columns": [
         "MEDV"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 500
+      "categorical_columns": []
     },
     "concrete": {
       "display_name": "Concrete",
@@ -101,8 +97,7 @@
       "behavior_columns": [
         "Strength"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 10000
+      "categorical_columns": []
     },
     "elnino": {
       "display_name": "ElNino",
@@ -126,8 +121,7 @@
         "Year",
         "Month",
         "Day"
-      ],
-      "reference_epochs": 5000
+      ]
     },
     "energy": {
       "display_name": "Energy",
@@ -146,8 +140,7 @@
         "Y1",
         "Y2"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 5000
+      "categorical_columns": []
     },
     "fish": {
       "display_name": "FishWeight",
@@ -165,8 +158,7 @@
       ],
       "categorical_columns": [
         "Species"
-      ],
-      "reference_epochs": 200
+      ]
     },
     "forestfires": {
       "display_name": "ForestFires",
@@ -189,7 +181,6 @@
         "area"
       ],
       "categorical_columns": [],
-      "reference_epochs": 5000,
       "notes": "Month and day use the stored numeric codes."
     },
     "gasemission": {
@@ -210,8 +201,7 @@
         "CO",
         "NOX"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 500
+      "categorical_columns": []
     },
     "heartfailure": {
       "display_name": "HeartFailure",
@@ -239,16 +229,15 @@
         "high_blood_pressure",
         "anaemia"
       ],
-      "reference_epochs": 1000,
       "notes": "DEATH_EVENT is excluded from model features; ground_truth is used for evaluation."
     },
     "hepatitis": {
       "display_name": "Hepatitis",
       "file": "hepatitisGene.csv",
       "context_columns": [
-        "Sex",
+        "Category",
         "Age",
-        "Category"
+        "Sex"
       ],
       "behavior_columns": [
         "ALB",
@@ -265,8 +254,7 @@
       "categorical_columns": [
         "Sex",
         "Category"
-      ],
-      "reference_epochs": 10000
+      ]
     },
     "indianliver": {
       "display_name": "IndianLiver",
@@ -289,8 +277,7 @@
       "categorical_columns": [
         "Gender",
         "Selector"
-      ],
-      "reference_epochs": 5000
+      ]
     },
     "maintenance": {
       "display_name": "Maintenance",
@@ -317,8 +304,7 @@
         "CompressorDecay",
         "TurbineDecay"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 5000
+      "categorical_columns": []
     },
     "parkinson": {
       "display_name": "Parkinson",
@@ -351,8 +337,7 @@
       ],
       "categorical_columns": [
         "sex"
-      ],
-      "reference_epochs": 5000
+      ]
     },
     "power": {
       "display_name": "PowerPlant",
@@ -366,8 +351,7 @@
       "behavior_columns": [
         "PE"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 10000
+      "categorical_columns": []
     },
     "qsranking": {
       "display_name": "QSRanking",
@@ -392,7 +376,6 @@
       "categorical_columns": [
         "Country"
       ],
-      "reference_epochs": 200,
       "notes": "SIZE, FOCUS, RESEARCH INTENSITY, AGE and STATUS are excluded from model features."
     },
     "synmachine": {
@@ -407,8 +390,7 @@
       "behavior_columns": [
         "If"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 500
+      "categorical_columns": []
     },
     "toxicity": {
       "display_name": "Toxicity",
@@ -424,8 +406,7 @@
       "behavior_columns": [
         "LC50"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 500
+      "categorical_columns": []
     },
     "yacht": {
       "display_name": "Yacht",
@@ -441,8 +422,7 @@
       "behavior_columns": [
         "resistance"
       ],
-      "categorical_columns": [],
-      "reference_epochs": 500
+      "categorical_columns": []
     }
   }
 }

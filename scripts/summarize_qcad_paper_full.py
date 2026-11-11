@@ -2,21 +2,20 @@
 
 import argparse
 import csv
-from decimal import Decimal, ROUND_HALF_UP
 import json
 import math
 from pathlib import Path
 import statistics
 
 
-from replay import MANIFEST, REPLAY, ROOT, read_manifest
+from replay import MAIN_MANIFEST as MANIFEST, MAIN_REPLAY as REPLAY, read_manifest
 
 
 METRICS = ("pr_auc", "roc_auc", "p_at_n")
 METHODS = ("Flow-CAD", "LUNAR", "DTE-C", "DTE-NP", "TCCM")
 QCAD_METHODS = ("QCAD", "LoPAD", "ROCOD", "CAD", "IForest", "LOF", "k-NN", "SOD", "HBOS")
-CAD_FULL = "CAD-Full"
-PAPER_STATS = dict(zip(METRICS, ("PRC AUC", "ROC AUC", "P@n"), strict=True))
+PAPER_STATS = dict(zip(METRICS, ("PR AUC", "ROC AUC", "P@n"), strict=True))
+RANK_TOLERANCE = 1e-12
 
 
 def read_records(path, method):
@@ -60,17 +59,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
     parser.add_argument("--output", type=Path, default=REPLAY)
-    parser.add_argument("--reference", type=Path, default=ROOT / "results" / "main_results.csv",
-                        help="CSV supplying values for methods without per-run records")
     parser.add_argument("--source", action="append", required=True, metavar="METHOD=PATH",
                         help="Per-case CSV or directory of per-case JSON files, one source for each method")
     args = parser.parse_args()
     sources = {name: Path(path) for name, path in (entry.split("=", 1) for entry in args.source)}
-    allowed_methods = set(METHODS + QCAD_METHODS + (CAD_FULL,))
-    if len(args.source) != len(sources) or not set(METHODS) <= sources.keys() <= allowed_methods:
-        parser.error("Provide one source for each required method, with optional sources for the QCAD baselines")
-    if {"CAD", CAD_FULL} <= sources.keys():
-        parser.error("Provide either CAD or CAD-Full for the CAD baseline column")
+    required_methods = set(METHODS + QCAD_METHODS)
+    if len(args.source) != len(sources) or sources.keys() != required_methods:
+        parser.error("Provide exactly one per-case source for each of the 14 benchmark methods")
     datasets = read_manifest(args.manifest)["datasets"]
     expected = {
         (dataset, int(seed)): spec["files"][str(seed)]["sha256"]
@@ -84,14 +79,14 @@ def main():
     status["complete"] = all(len(table) == len(expected) for table in results.values())
     args.output.mkdir(parents=True, exist_ok=True)
     if status["complete"]:
-        summarize(args.output, datasets, results, args.reference)
+        summarize(args.output, datasets, results)
     temporary = args.output / "full_coverage.tmp"
     temporary.write_text(json.dumps(status, indent=2) + "\n")
     temporary.replace(args.output / "full_coverage.json")
     print(json.dumps(status), flush=True)
 
 
-def summarize(output, datasets, results, reference):
+def summarize(output, datasets, results):
     per_case, per_dataset, macro = [], [], []
     for method, table in results.items():
         per_case.extend(table[key] for key in sorted(table))
@@ -110,8 +105,9 @@ def summarize(output, datasets, results, reference):
     for rows in by_dataset.values():
         for metric in METRICS:
             key = f"{metric}_mean"
-            for row in rows:
-                row[f"{metric}_rank"] = average_rank(row[key], [peer[key] for peer in rows], True)
+            ranks = descending_ranks([row[key] for row in rows])
+            for row, rank in zip(rows, ranks, strict=True):
+                row[f"{metric}_rank"] = rank
     for method in results:
         rows = [row for row in per_dataset if row["method"] == method]
         summary = {"method": method, "n_datasets": len(rows), "n_methods_ranked": len(results)}
@@ -126,41 +122,36 @@ def summarize(output, datasets, results, reference):
     write_csv(output / "full_paired_metrics.csv", per_case)
     write_csv(output / "full_per_dataset.csv", per_dataset)
     write_csv(output / "full_macro.csv", macro)
-    write_main_table(output, datasets, per_dataset, reference)
+    write_main_table(output, datasets, per_dataset)
 
 
-def displayed_mean(value):
-    return Decimal(str(value)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+def descending_ranks(values):
+    """Average ranks at full precision, grouping numerical ties within 1e-12."""
+    order = sorted(range(len(values)), key=values.__getitem__, reverse=True)
+    ranks = [None] * len(order)
+    first = 0
+    while first < len(order):
+        stop = first + 1
+        while stop < len(order) and values[order[first]] - values[order[stop]] <= RANK_TOLERANCE:
+            stop += 1
+        rank = (first + 1 + stop) / 2
+        for index in order[first:stop]:
+            ranks[index] = rank
+        first = stop
+    return ranks
 
 
-def write_main_table(output, datasets, per_dataset, reference):
+def write_main_table(output, datasets, per_dataset):
     names = [spec["display_name"] for spec in datasets.values()]
     stat_names = tuple(PAPER_STATS.values())
     replay_methods = {row["method"] for row in per_dataset}
-    missing_methods = set(QCAD_METHODS) - replay_methods
-    if CAD_FULL in replay_methods:
-        missing_methods.discard("CAD")
-    reference_rows = []
-    if missing_methods:
-        with reference.open(newline="") as stream:
-            reference_rows = list(csv.DictReader(stream))
-    use_cad_full = CAD_FULL in replay_methods or (
-        "CAD" in missing_methods and any(row["method"] == CAD_FULL for row in reference_rows)
-    )
-    baselines = tuple(CAD_FULL if method == "CAD" and use_cad_full else method for method in QCAD_METHODS)
-    reference_methods = set(baselines) - replay_methods
-    expected = {(name, stat, method) for name in names for stat in stat_names for method in reference_methods}
+    baselines = QCAD_METHODS
+    expected_methods = set(METHODS + QCAD_METHODS)
+    if replay_methods != expected_methods:
+        missing = sorted(expected_methods - replay_methods)
+        extra = sorted(replay_methods - expected_methods)
+        raise ValueError(f"Expected all 14 rerun methods; missing={missing}, extra={extra}")
     scores = {}
-    for row in reference_rows:
-        if row["method"] not in reference_methods:
-            continue
-        key = (row["dataset"], row["stat"], row["method"])
-        if key in scores:
-            raise ValueError(f"Duplicate QCAD reference value: {key}")
-        scores[key] = (row["mean"], row["std"], row.get("source") or "QCAD Table 6")
-    if scores.keys() != expected:
-        raise ValueError("Expected one reference value for each dataset, metric and method without per-run results")
-
     for row in per_dataset:
         dataset = datasets[row["dataset"]]["display_name"]
         for metric, stat in PAPER_STATS.items():
@@ -172,11 +163,11 @@ def write_main_table(output, datasets, per_dataset, reference):
     method_order = ("Flow-CAD", *baselines, *METHODS[1:])
     for name in names:
         for stat in stat_names:
-            peers = [displayed_mean(scores[name, stat, method][0]) for method in method_order]
-            for method, shown in zip(method_order, peers, strict=True):
+            means = [float(scores[name, stat, method][0]) for method in method_order]
+            for method, rank in zip(method_order, descending_ranks(means), strict=True):
                 value, std, source = scores[name, stat, method]
                 row = {"dataset": name, "stat": stat, "method": method,
-                       "mean": value, "std": std, "rank": average_rank(shown, peers, True),
+                       "mean": value, "std": std, "rank": rank,
                        "source": source}
                 rows.append(row)
                 groups.setdefault((stat, method), []).append(row)

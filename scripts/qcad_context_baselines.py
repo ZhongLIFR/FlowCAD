@@ -46,8 +46,7 @@ def _score_lopad(features, spec, seed, qcad_repo):
     visits = np.zeros(len(values), dtype=np.int64)
     tree = DecisionTreeRegressor(random_state=np.random.RandomState(seed))
     for sample_seed in range(LOPAD_REPEATS):
-        # The released code uses 20 random 80% subsets without replacement.
-        # The 200 repetitions reported in the paper differ from this release.
+        # Use the 20 random 80% subsets in the released implementation.
         indices = np.random.RandomState(sample_seed).choice(len(values), round(0.8 * len(values)), replace=False)
         sample = values[indices]
         scores = np.zeros(len(indices), dtype=np.float64)

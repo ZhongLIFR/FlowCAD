@@ -1,4 +1,4 @@
-"""GMM-CAD-Full following Song et al. (2007), Sections II-B and III-C."""
+"""GMM-based CAD following Song et al. (2007), Sections II-B and III-C."""
 
 import numpy as np
 from scipy.linalg import solve_triangular

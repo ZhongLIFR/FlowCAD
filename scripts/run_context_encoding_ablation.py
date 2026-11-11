@@ -9,7 +9,7 @@ from pathlib import Path
 from statistics import mean
 import sys
 
-from replay import MANIFEST, ROOT, read_manifest, verify_model
+from replay import MAIN_MANIFEST as MANIFEST, ROOT, read_manifest, verify_model
 from run_qcad_paper_flowcad import FIRST_INJECTION_SEED, FIRST_MODEL_SEED, METRICS
 
 
@@ -160,8 +160,12 @@ def main():
     datasets = read_manifest(args.manifest)["datasets"]
     replay = args.manifest.parent.parent
     local = args.one_hot_summary or replay / "flowcad_fixed_1000" / "summary.csv"
-    use_local = args.one_hot_summary is not None or local.exists()
-    reference = read_flowcad_records(local if use_local else ROOT / "results" / "main_per_run.csv")
+    if not local.is_file():
+        parser.error(
+            "Run the fixed-budget Flow-CAD benchmark first, or pass its summary with "
+            "--one-hot-summary"
+        )
+    reference = read_flowcad_records(local)
     output = args.output or replay / "context_encoding_ablation_fixed_1000"
     jobs, baseline = {}, {}
     # Submit the larger dataset first to reduce idle workers near completion.
@@ -173,12 +177,11 @@ def main():
             row = reference[key]
             if row["sha256"] != info["sha256"]:
                 raise ValueError(f"One-hot reference differs from the input manifest: {key}")
-            if use_local:
-                training_seed = FIRST_MODEL_SEED + injection_seed - FIRST_INJECTION_SEED
-                if (row["flowcad_commit"] != revision
-                        or row["mode"] != "fixed_1000" or int(row["selected_epoch"]) != 1000
-                        or int(row["training_seed"]) != training_seed):
-                    raise ValueError(f"One-hot reference uses a different fixed-epoch protocol: {key}")
+            training_seed = FIRST_MODEL_SEED + injection_seed - FIRST_INJECTION_SEED
+            if (row["flowcad_commit"] != revision
+                    or row["mode"] != "fixed_1000" or int(row["selected_epoch"]) != 1000
+                    or int(row["training_seed"]) != training_seed):
+                raise ValueError(f"One-hot reference uses a different fixed-epoch protocol: {key}")
             baseline[key] = {f"one_hot_{metric}": float(row[metric]) for metric in METRICS}
             jobs[key] = (dataset, injection_seed, spec, args.manifest.parent / info["path"], info["sha256"])
 

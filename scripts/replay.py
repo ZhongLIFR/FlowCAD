@@ -6,16 +6,16 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REPLAY = ROOT / "outputs" / "qcad_paper_replay"
-REFERENCE = ROOT / "configs" / "qcad_paper_manifest.json"
-MANIFEST = REPLAY / "data" / "manifest.json"
-MODEL_COMMIT = "20e3d74da1809771b865ce05f97ef908b34f5483"
+MAIN_REPLAY = ROOT / "outputs" / "qcad_paper_7_seed_replay"
+MAIN_REFERENCE = ROOT / "configs" / "qcad_paper_7_seed_manifest.json"
+MAIN_MANIFEST = MAIN_REPLAY / "data" / "manifest.json"
+MODEL_COMMIT = "icde-2027-fixed-1000"
 
 
 def read_manifest(path):
     value = json.loads(path.read_bytes())
-    if value != json.loads(REFERENCE.read_bytes()):
-        raise ValueError(f"Input manifest differs from the published replay: {path}")
+    if value != json.loads(MAIN_REFERENCE.read_bytes()):
+        raise ValueError(f"Input manifest differs from the pinned main benchmark: {path}")
     return value
 
 

@@ -1,8 +1,11 @@
 {
   "flowcad/__init__.py": "0be010724023614ccb4c19c244a8dd8ef0aba5a44f4d788a58cf7e21c7193e38",
-  "flowcad/checkpoints.py": "ca296e5e0f7afb7cd73952aa46b686970b1fdbe858a42edac2d5fbb5bf568fdb",
+  "flowcad/batch.py": "4525818b480c1459e27ae528466be72c93074b6d4207c3ac09827168c23d537c",
+  "flowcad/checkpoints.py": "98508f793d201310c594f67fedaf896873770865bc511f4852b8e1f6184e379a",
   "flowcad/data.py": "ccf610c08f6e802ad509156afcd56c13dbd85c348fecea891af925990232e39a",
-  "flowcad/detector.py": "1bf01d6e5d66d8311da37588c9c4eb10a1fdc128f67a88667ca409faa6603ce2",
+  "flowcad/detector.py": "57b727d48a6d792d983b787eb30a0a446fa6a3c5d260538e133ce53018fd7dac",
+  "flowcad/fixed.py": "1588b5ba864e451ee7ebff8c1712b711baa265667db5e7d9054b49d93aec3de1",
   "flowcad/metrics.py": "118697d45bae65e5933bf6eee55c6eab371b96e4338d294b70d72db56a86095d",
-  "flowcad/reference.py": "19a8da32429b31685542c662eab323056de897b9e003e2ab036ecbcedd6d6707"
+  "flowcad/reference.py": "19a8da32429b31685542c662eab323056de897b9e003e2ab036ecbcedd6d6707",
+  "scripts/run_qcad_paper_flowcad.py": "5c39a2d843912e8ac6e329c64c6928dac91996a22ba0b37bd9961f3e8f3fd4ba"
 }
